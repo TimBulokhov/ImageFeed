@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Images List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ImagesListViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -42,26 +42,34 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="r0B-aG-asY" userLabel="Like Button">
-                                                    <rect key="frame" x="331" y="11" width="42" height="42"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyo-hP-j0D" userLabel="Like Button">
+                                                    <rect key="frame" x="331" y="4" width="42" height="42"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="42" id="EJ1-8I-yYM"/>
+                                                        <constraint firstAttribute="height" constant="42" id="OLl-YD-sOx"/>
+                                                    </constraints>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="like_button_on"/>
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="zhj-Xc-s0e" firstAttribute="trailing" secondItem="r0B-aG-asY" secondAttribute="trailing" id="A5n-6b-jwG"/>
+                                                <constraint firstItem="kyo-hP-j0D" firstAttribute="trailing" secondItem="CR5-KN-cNR" secondAttribute="trailingMargin" id="7Sr-1V-dfy"/>
                                                 <constraint firstItem="zhj-Xc-s0e" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ju5-Gd-0Mh" secondAttribute="trailing" constant="8" id="CNR-cu-JHw"/>
                                                 <constraint firstItem="zhj-Xc-s0e" firstAttribute="top" secondItem="CR5-KN-cNR" secondAttribute="top" constant="4" id="G2n-Pm-Xdd"/>
                                                 <constraint firstItem="zhj-Xc-s0e" firstAttribute="bottom" secondItem="Ju5-Gd-0Mh" secondAttribute="bottom" constant="8" id="Hp5-OY-X80"/>
+                                                <constraint firstItem="kyo-hP-j0D" firstAttribute="top" secondItem="zhj-Xc-s0e" secondAttribute="top" id="M78-7I-fbg"/>
                                                 <constraint firstItem="zhj-Xc-s0e" firstAttribute="leading" secondItem="CR5-KN-cNR" secondAttribute="leading" constant="16" id="OkB-g8-mAV"/>
                                                 <constraint firstItem="Ju5-Gd-0Mh" firstAttribute="leading" secondItem="zhj-Xc-s0e" secondAttribute="leading" constant="8" id="QS4-6i-XxI"/>
                                                 <constraint firstAttribute="trailing" secondItem="zhj-Xc-s0e" secondAttribute="trailing" constant="16" id="Tv2-zV-0dj"/>
                                                 <constraint firstAttribute="bottom" secondItem="zhj-Xc-s0e" secondAttribute="bottom" constant="4" id="cXO-Zy-jFo"/>
-                                                <constraint firstItem="r0B-aG-asY" firstAttribute="top" secondItem="zhj-Xc-s0e" secondAttribute="top" id="xrF-qQ-FTK"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="cellImage" destination="zhj-Xc-s0e" id="Hei-TO-FSo"/>
+                                            <outlet property="dateLabel" destination="Ju5-Gd-0Mh" id="gxm-Sa-Vf2"/>
+                                            <outlet property="likeButton" destination="kyo-hP-j0D" id="Q3d-5H-ZFT"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -79,6 +87,9 @@
                             <constraint firstAttribute="trailing" secondItem="3go-tq-jG9" secondAttribute="trailing" id="xNd-rY-JAc"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tableView" destination="3go-tq-jG9" id="a0c-OD-XP3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
