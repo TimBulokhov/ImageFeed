@@ -66,9 +66,9 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="cellImage" destination="zhj-Xc-s0e" id="Hei-TO-FSo"/>
-                                            <outlet property="dateLabel" destination="Ju5-Gd-0Mh" id="gxm-Sa-Vf2"/>
-                                            <outlet property="likeButton" destination="kyo-hP-j0D" id="Q3d-5H-ZFT"/>
+                                            <outlet property="cellImage" destination="zhj-Xc-s0e" id="j6i-hC-sXI"/>
+                                            <outlet property="dateLabel" destination="Ju5-Gd-0Mh" id="3TN-75-elq"/>
+                                            <outlet property="likeButton" destination="kyo-hP-j0D" id="TCj-bN-4UJ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -88,7 +88,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tableView" destination="3go-tq-jG9" id="a0c-OD-XP3"/>
+                        <outlet property="tableView" destination="3go-tq-jG9" id="X04-FV-gzL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
