@@ -44,7 +44,6 @@
 		1259A7552B62CB6C0001A66A = {
 			isa = PBXGroup;
 			children = (
-				1272CDDD2B6FA0E30062B044 /* UserProfile */,
 				1259A7602B62CB6C0001A66A /* ImageFeed */,
 				1259A75F2B62CB6C0001A66A /* Products */,
 			);
@@ -63,6 +62,7 @@
 			children = (
 				1259A7612B62CB6C0001A66A /* AppDelegate.swift */,
 				1259A7632B62CB6C0001A66A /* SceneDelegate.swift */,
+				1272CDDD2B6FA0E30062B044 /* UserProfile */,
 				1272CDDA2B6FA0450062B044 /* ImagesList */,
 				1259A7672B62CB6C0001A66A /* Main.storyboard */,
 				1259A76A2B62CB6D0001A66A /* Assets.xcassets */,
