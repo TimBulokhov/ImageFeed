@@ -62,9 +62,9 @@
 		1259A7602B62CB6C0001A66A /* ImageFeed */ = {
 			isa = PBXGroup;
 			children = (
-				1272CDE02B6FCDEF0062B044 /* SingleImageViewController.swift */,
 				1259A7612B62CB6C0001A66A /* AppDelegate.swift */,
 				1259A7632B62CB6C0001A66A /* SceneDelegate.swift */,
+				1272CDE22B6FE1190062B044 /* SingleImageView */,
 				1272CDDD2B6FA0E30062B044 /* UserProfile */,
 				1272CDDA2B6FA0450062B044 /* ImagesList */,
 				1259A7672B62CB6C0001A66A /* Main.storyboard */,
@@ -90,6 +90,14 @@
 				1272CDDE2B6FB1450062B044 /* ProfileViewController.swift */,
 			);
 			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		1272CDE22B6FE1190062B044 /* SingleImageView */ = {
+			isa = PBXGroup;
+			children = (
+				1272CDE02B6FCDEF0062B044 /* SingleImageViewController.swift */,
+			);
+			path = SingleImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
