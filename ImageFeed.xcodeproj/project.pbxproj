@@ -14,7 +14,7 @@
 		1259A76E2B62CB6D0001A66A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1259A76C2B62CB6D0001A66A /* LaunchScreen.storyboard */; };
 		1272CDD72B6F9DBF0062B044 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDD62B6F9DBF0062B044 /* ImagesListViewController.swift */; };
 		1272CDD92B6F9DEF0062B044 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDD82B6F9DEF0062B044 /* ImagesListCell.swift */; };
-		1272CDDC2B6FA0DB0062B044 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDDB2B6FA0DB0062B044 /* ProfileViewController.swift */; };
+		1272CDDF2B6FB1450062B044 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDDE2B6FB1450062B044 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +27,7 @@
 		1259A76F2B62CB6D0001A66A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1272CDD62B6F9DBF0062B044 /* ImagesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
 		1272CDD82B6F9DEF0062B044 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
-		1272CDDB2B6FA0DB0062B044 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1272CDDE2B6FB1450062B044 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +84,7 @@
 		1272CDDD2B6FA0E30062B044 /* UserProfile */ = {
 			isa = PBXGroup;
 			children = (
-				1272CDDB2B6FA0DB0062B044 /* ProfileViewController.swift */,
+				1272CDDE2B6FB1450062B044 /* ProfileViewController.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -162,7 +162,7 @@
 			files = (
 				1272CDD72B6F9DBF0062B044 /* ImagesListViewController.swift in Sources */,
 				1272CDD92B6F9DEF0062B044 /* ImagesListCell.swift in Sources */,
-				1272CDDC2B6FA0DB0062B044 /* ProfileViewController.swift in Sources */,
+				1272CDDF2B6FB1450062B044 /* ProfileViewController.swift in Sources */,
 				1259A7622B62CB6C0001A66A /* AppDelegate.swift in Sources */,
 				1259A7642B62CB6C0001A66A /* SceneDelegate.swift in Sources */,
 			);
