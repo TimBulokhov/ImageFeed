@@ -12,6 +12,10 @@
 		1259A7692B62CB6C0001A66A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1259A7672B62CB6C0001A66A /* Main.storyboard */; };
 		1259A76B2B62CB6D0001A66A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1259A76A2B62CB6D0001A66A /* Assets.xcassets */; };
 		1259A76E2B62CB6D0001A66A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1259A76C2B62CB6D0001A66A /* LaunchScreen.storyboard */; };
+		1272CDD72B6F9DBF0062B044 /* ImagesListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDD62B6F9DBF0062B044 /* ImagesListViewController.swift */; };
+		1272CDD92B6F9DEF0062B044 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDD82B6F9DEF0062B044 /* ImagesListCell.swift */; };
+		1272CDDF2B6FB1450062B044 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDDE2B6FB1450062B044 /* ProfileViewController.swift */; };
+		1272CDE52B6FE53E0062B044 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDE42B6FE53E0062B044 /* SingleImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		1259A76A2B62CB6D0001A66A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1259A76D2B62CB6D0001A66A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1259A76F2B62CB6D0001A66A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1272CDD62B6F9DBF0062B044 /* ImagesListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListViewController.swift; sourceTree = "<group>"; };
+		1272CDD82B6F9DEF0062B044 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
+		1272CDDE2B6FB1450062B044 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		1272CDE42B6FE53E0062B044 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,12 +64,40 @@
 			children = (
 				1259A7612B62CB6C0001A66A /* AppDelegate.swift */,
 				1259A7632B62CB6C0001A66A /* SceneDelegate.swift */,
+				1272CDE32B6FE51A0062B044 /* SingleImageView */,
+				1272CDDD2B6FA0E30062B044 /* UserProfile */,
+				1272CDDA2B6FA0450062B044 /* ImagesList */,
 				1259A7672B62CB6C0001A66A /* Main.storyboard */,
 				1259A76A2B62CB6D0001A66A /* Assets.xcassets */,
 				1259A76C2B62CB6D0001A66A /* LaunchScreen.storyboard */,
 				1259A76F2B62CB6D0001A66A /* Info.plist */,
 			);
 			path = ImageFeed;
+			sourceTree = "<group>";
+		};
+		1272CDDA2B6FA0450062B044 /* ImagesList */ = {
+			isa = PBXGroup;
+			children = (
+				1272CDD62B6F9DBF0062B044 /* ImagesListViewController.swift */,
+				1272CDD82B6F9DEF0062B044 /* ImagesListCell.swift */,
+			);
+			path = ImagesList;
+			sourceTree = "<group>";
+		};
+		1272CDDD2B6FA0E30062B044 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				1272CDDE2B6FB1450062B044 /* ProfileViewController.swift */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		1272CDE32B6FE51A0062B044 /* SingleImageView */ = {
+			isa = PBXGroup;
+			children = (
+				1272CDE42B6FE53E0062B044 /* SingleImageViewController.swift */,
+			);
+			path = SingleImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,7 +171,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1272CDD72B6F9DBF0062B044 /* ImagesListViewController.swift in Sources */,
+				1272CDD92B6F9DEF0062B044 /* ImagesListCell.swift in Sources */,
+				1272CDDF2B6FB1450062B044 /* ProfileViewController.swift in Sources */,
 				1259A7622B62CB6C0001A66A /* AppDelegate.swift in Sources */,
+				1272CDE52B6FE53E0062B044 /* SingleImageViewController.swift in Sources */,
 				1259A7642B62CB6C0001A66A /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -214,7 +254,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -271,7 +311,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
