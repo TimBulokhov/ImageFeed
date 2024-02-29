@@ -56,12 +56,12 @@ final class WebViewViewController: UIViewController {
 }
 extension WebViewViewController {
     func formUrl() {
-        var urlComponents = URLComponents(string: UnsplashAuthorizeURLString)!
+        var urlComponents = URLComponents(string: ApiConstants.unsplashAuthorizeURLString)!
         urlComponents.queryItems = [
-        URLQueryItem(name: "client_id", value: AccessKey),
-        URLQueryItem(name: "redirect_uri", value: RedirectURI),
+            URLQueryItem(name: "client_id", value: ApiConstants.accessKey),
+            URLQueryItem(name: "redirect_uri", value: ApiConstants.redirectURI),
         URLQueryItem(name: "response_type", value: "code"),
-        URLQueryItem(name: "scope", value: AccessScope)]
+            URLQueryItem(name: "scope", value: ApiConstants.accessScope)]
         let url = urlComponents.url!
         
         let request = URLRequest(url: url)

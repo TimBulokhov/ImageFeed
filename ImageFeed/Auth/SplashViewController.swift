@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SplashViewController: UIViewController {
+final class SplashViewController: UIViewController {
     
     private let authenticationSegueIdentifier = "ShowAuthenticationScreen"
     
@@ -42,7 +42,7 @@ class SplashViewController: UIViewController {
         window.rootViewController = tabBarController
     }
 }
-    
+
 extension SplashViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == authenticationSegueIdentifier {
