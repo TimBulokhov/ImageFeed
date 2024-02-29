@@ -7,11 +7,11 @@
 
 import Foundation
 
-class OAuth2Service {
+final class OAuth2Service {
 
-    static let shared = OAuth2Service()
-    let urlSession = URLSession.shared
-    var token: String? {
+    private static let shared = OAuth2Service()
+    private let urlSession = URLSession.shared
+    private var token: String? {
         get {
             return OAuth2TokenStorage().token
         }
