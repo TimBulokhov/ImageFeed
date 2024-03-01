@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum ApiConstants {
     static let accessKey: String = "-16q6dGRqUg_XxSIzJReF0OnAB8yUbUpFZfaDz1Idu0"
@@ -14,6 +15,7 @@ enum ApiConstants {
     static let accessScope: String = "public+read_user+write_likes"
     static let defaultBaseURL = URL(string: "https://api.unsplash.com")!
     static let unsplashAuthorizeURLString: String = "https://unsplash.com/oauth/authorize"
+    static let accessTokenURL = "https://unsplash.com/oauth/token"
 }
 
 
