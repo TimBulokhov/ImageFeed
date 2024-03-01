@@ -34,7 +34,7 @@ final class SplashViewController: UIViewController {
 
     private func showAlert() {
         let alertController = UIAlertController(
-            title: "Something was wrong :(",
+            title: "Something was wrong:(",
             message: "Can't log in to the system",
             preferredStyle: .alert
             )

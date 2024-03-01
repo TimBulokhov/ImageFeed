@@ -16,7 +16,7 @@ final class ProfileViewController: UIViewController {
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "avatar")
+        imageView.image = UIImage(named: "Photo")
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +52,7 @@ final class ProfileViewController: UIViewController {
     
     lazy var logoutButton: UIButton = {
         let button = UIButton.systemButton(
-            with: UIImage(named: "logout_button")!,
+            with: UIImage(named: "Exit")!,
             target: self,
             action: #selector(didTapLogoutButton))
         button.tintColor = .ypRed

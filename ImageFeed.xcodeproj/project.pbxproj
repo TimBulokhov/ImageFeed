@@ -16,9 +16,9 @@
 		1251FAC82B9234B00050C270 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1251FAC72B9234B00050C270 /* AuthViewController.swift */; };
 		1251FACA2B9234D70050C270 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1251FAC92B9234D70050C270 /* WebViewController.swift */; };
 		1251FACC2B9235CC0050C270 /* ProfileImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1251FACB2B9235CC0050C270 /* ProfileImageService.swift */; };
+		1251FACE2B9254630050C270 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1251FACD2B9254630050C270 /* Main.storyboard */; };
 		1259A7622B62CB6C0001A66A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259A7612B62CB6C0001A66A /* AppDelegate.swift */; };
 		1259A7642B62CB6C0001A66A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1259A7632B62CB6C0001A66A /* SceneDelegate.swift */; };
-		1259A7692B62CB6C0001A66A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1259A7672B62CB6C0001A66A /* Main.storyboard */; };
 		1259A76B2B62CB6D0001A66A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1259A76A2B62CB6D0001A66A /* Assets.xcassets */; };
 		1259A76E2B62CB6D0001A66A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1259A76C2B62CB6D0001A66A /* LaunchScreen.storyboard */; };
 		125B1DCD2B90FE2A00D11139 /* Extension+URL Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B1DCC2B90FE2A00D11139 /* Extension+URL Request.swift */; };
@@ -52,10 +52,10 @@
 		1251FAC72B9234B00050C270 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		1251FAC92B9234D70050C270 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		1251FACB2B9235CC0050C270 /* ProfileImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageService.swift; sourceTree = "<group>"; };
+		1251FACD2B9254630050C270 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		1259A75E2B62CB6C0001A66A /* ImageFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1259A7612B62CB6C0001A66A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1259A7632B62CB6C0001A66A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		1259A7682B62CB6C0001A66A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1259A76A2B62CB6D0001A66A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1259A76D2B62CB6D0001A66A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1259A76F2B62CB6D0001A66A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -130,7 +130,6 @@
 				1272CDDA2B6FA0450062B044 /* ImagesList */,
 				1272CDE32B6FE51A0062B044 /* SingleImageView */,
 				126361862B8B522900F20C22 /* Auth */,
-				1259A7672B62CB6C0001A66A /* Main.storyboard */,
 				1259A76A2B62CB6D0001A66A /* Assets.xcassets */,
 				1259A76C2B62CB6D0001A66A /* LaunchScreen.storyboard */,
 				1259A76F2B62CB6D0001A66A /* Info.plist */,
@@ -152,6 +151,7 @@
 				1251FAC22B9232270050C270 /* UIBlockingProgresssHUD.swift */,
 				1251FAC72B9234B00050C270 /* AuthViewController.swift */,
 				1251FAC92B9234D70050C270 /* WebViewController.swift */,
+				1251FACD2B9254630050C270 /* Main.storyboard */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -263,7 +263,7 @@
 			files = (
 				1259A76E2B62CB6D0001A66A /* LaunchScreen.storyboard in Resources */,
 				1259A76B2B62CB6D0001A66A /* Assets.xcassets in Resources */,
-				1259A7692B62CB6C0001A66A /* Main.storyboard in Resources */,
+				1251FACE2B9254630050C270 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +297,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1259A7672B62CB6C0001A66A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1259A7682B62CB6C0001A66A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1259A76C2B62CB6D0001A66A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

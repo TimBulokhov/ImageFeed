@@ -17,8 +17,10 @@ enum ParseError: Error {
     case decodeError(Error)
 }
 
+import Foundation
+
 extension URLRequest {
-    static func makeHTTPRequest(
+    static func makeHTTPRequest (
         path: String,
         httpMethod: String,
         baseURL: URL? = ApiConstants.defaultBaseURL
@@ -46,6 +48,7 @@ extension URLSession {
                     completion(.failure(NetworkError.urlSessionError(error)))
                 }
             }
+
             if let response = response as? HTTPURLResponse {
                 if !(200..<300 ~= response.statusCode) {
                     DispatchQueue.main.async {
@@ -53,6 +56,7 @@ extension URLSession {
                     }
                 }
             }
+
             if let data = data {
                 do {
                     let decoder = JSONDecoder()

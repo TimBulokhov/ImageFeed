@@ -14,20 +14,20 @@ protocol WebViewViewControllerDelegate: AnyObject {
 }
 
 final class WebViewViewController: UIViewController {
-    
+
     @IBOutlet private var webView: WKWebView!
-    
+
     @IBOutlet private var progressView: UIProgressView!
-    
+
     weak var delegate: WebViewViewControllerDelegate?
-    
+
     private var estimmatedProgressObservation: NSKeyValueObservation?
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         webView.navigationDelegate = self
-        
+
         var urlComponents = URLComponents(string: ApiConstants.unsplashAuthorizeURLString)!
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: ApiConstants.accessKey),
@@ -37,15 +37,15 @@ final class WebViewViewController: UIViewController {
         ]
         let url = urlComponents.url!
         let request = URLRequest(url: url)
-        
+
         webView.load(request)
-        
+
         estimmatedProgressObservation = webView.observe(\.estimatedProgress) { [weak self] _, _ in
             guard let self = self else { return }
             self.updateProgress()
-            
-        }
+
     }
+}
     private func updateProgress() {
         progressView.progress = Float(webView.estimatedProgress)
         progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
