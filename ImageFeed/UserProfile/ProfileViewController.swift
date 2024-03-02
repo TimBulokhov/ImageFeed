@@ -160,6 +160,7 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func didTapLogoutButton() {
+        OAuth2TokenStorage.shared.token = nil
         print("Exit app")
     }
 }

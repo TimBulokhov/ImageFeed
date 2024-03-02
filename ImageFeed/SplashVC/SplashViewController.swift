@@ -19,7 +19,7 @@ final class SplashViewController: UIViewController {
     
     
     private let networkService = OAuth2Service.shared
-    private let oauthToTokenStorage = OAuth2TokenStorage()
+    private let oauthToTokenStorage = OAuth2TokenStorage.shared
     private let profileService = ProfileService.shared
     private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
     
@@ -63,7 +63,7 @@ final class SplashViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if let token = oauthToTokenStorage.token {
-            OAuth2TokenStorage.shared.token = nil
+            fetchProfile(with: token)
         } else {
             if !networkService.isLoading {
                 switchToAuthViewController()

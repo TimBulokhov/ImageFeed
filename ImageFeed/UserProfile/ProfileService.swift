@@ -14,6 +14,10 @@ final class ProfileService {
     private var urlSession = URLSession.shared
     static var shared = ProfileService()
     
+    private init() {
+        
+    }
+    
     func fetchProfile(_ token: String, completion: @escaping (Result<ProfileResult, Error>) -> Void) {
         
         assert(Thread.isMainThread)
