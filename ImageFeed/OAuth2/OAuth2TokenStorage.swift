@@ -18,10 +18,14 @@ final class OAuth2TokenStorage {
     
     var token: String? {
         get {
-            KeychainWrapper.standard.string(forKey: "token")
+            KeychainWrapper.standard.string(forKey: KeysInStorage.token.rawValue)
         }
         set {
-            KeychainWrapper.standard.set(KeysInStorage.token.rawValue, forKey: "token")
+            if let newValue {
+                KeychainWrapper.standard.set(newValue, forKey: KeysInStorage.token.rawValue)
+                return
+            }
+            KeychainWrapper.standard.removeObject(forKey: KeysInStorage.token.rawValue)
         }
     }
 }

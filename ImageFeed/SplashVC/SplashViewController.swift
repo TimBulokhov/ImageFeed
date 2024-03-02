@@ -63,9 +63,8 @@ final class SplashViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if let token = oauthToTokenStorage.token {
-            fetchProfile(with: token)
+            OAuth2TokenStorage.shared.token = nil
         } else {
-            
             if !networkService.isLoading {
                 switchToAuthViewController()
             }

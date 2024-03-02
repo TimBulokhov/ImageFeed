@@ -12,7 +12,7 @@ final class ProfileService {
     var profile: ProfileResult?
     private var task: URLSessionTask?
     private var urlSession = URLSession.shared
-    static let shared = ProfileService()
+    static var shared = ProfileService()
     
     func fetchProfile(_ token: String, completion: @escaping (Result<ProfileResult, Error>) -> Void) {
         
