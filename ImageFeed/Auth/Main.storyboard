@@ -80,7 +80,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="nav_back_button"/>
                                 <connections>
-                                    <action selector="didTapBackButton:" destination="07H-Nh-fC8" eventType="touchUpInside" id="Mck-F3-10L"/>
+                                    <action selector="didTapBackButton:" destination="07H-Nh-fC8" eventType="touchUpInside" id="FKX-9p-RVW"/>
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iKn-WU-H81">
@@ -104,8 +104,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="939-us-qQG"/>
                     <connections>
-                        <outlet property="progressView" destination="iKn-WU-H81" id="ZFf-xl-tgK"/>
-                        <outlet property="webView" destination="yuY-ib-BvA" id="elm-lj-Zf6"/>
+                        <outlet property="progressView" destination="iKn-WU-H81" id="TbF-ml-0Ws"/>
+                        <outlet property="webView" destination="yuY-ib-BvA" id="RgP-28-L0t"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Zb-2o-MkI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -177,15 +177,15 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="cellImage" destination="mh8-NC-hs1" id="ALj-eT-Hvx"/>
-                                            <outlet property="dateLabel" destination="AFB-JZ-EDP" id="D6k-oM-eB0"/>
-                                            <outlet property="likeButton" destination="biT-01-jTT" id="y9Z-0b-Qkb"/>
+                                            <outlet property="cellImage" destination="mh8-NC-hs1" id="PdI-O9-wS9"/>
+                                            <outlet property="dateLabel" destination="AFB-JZ-EDP" id="sDn-M4-DDE"/>
+                                            <outlet property="likeButton" destination="biT-01-jTT" id="fZs-3Q-r0T"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="piv-RB-xTF"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="im8-E8-YQ3"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="NIB-ds-EqY"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="2XD-Gi-dyk"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -201,7 +201,7 @@
                     <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="Yry-pi-Yah"/>
                     <navigationItem key="navigationItem" id="AEf-md-pd5"/>
                     <connections>
-                        <outlet property="tableView" destination="sOh-i2-KmV" id="aT2-6V-yZN"/>
+                        <outlet property="tableView" destination="sOh-i2-KmV" id="CIh-vN-UUn"/>
                         <segue destination="2pA-5f-YJk" kind="presentation" identifier="ShowSingleImage" id="ObC-q9-dAq"/>
                     </connections>
                 </viewController>
@@ -247,7 +247,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Sharing"/>
                                 <connections>
-                                    <action selector="didTapShareButton" destination="2pA-5f-YJk" eventType="touchUpInside" id="AtT-XQ-rYf"/>
+                                    <action selector="didTapShareButton" destination="2pA-5f-YJk" eventType="touchUpInside" id="91v-9H-kMF"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iwd-Cw-sF3">
@@ -259,7 +259,7 @@
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Backward"/>
                                 <connections>
-                                    <action selector="didTapBackButton" destination="2pA-5f-YJk" eventType="touchUpInside" id="Ax2-o0-fRE"/>
+                                    <action selector="didTapBackButton" destination="2pA-5f-YJk" eventType="touchUpInside" id="dCS-Lz-vJx"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -278,10 +278,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="S8i-Kj-Bra"/>
                     <connections>
-                        <outlet property="backButton" destination="Iwd-Cw-sF3" id="Wvf-l4-im5"/>
-                        <outlet property="imageView" destination="On4-5O-9lN" id="8S4-Q0-dH5"/>
-                        <outlet property="scrollView" destination="7c7-o2-mU8" id="Wir-D3-PMk"/>
-                        <outlet property="shareButton" destination="A3u-5S-KwI" id="ukh-Kt-m45"/>
+                        <outlet property="backButton" destination="Iwd-Cw-sF3" id="XBE-xx-NRg"/>
+                        <outlet property="imageView" destination="On4-5O-9lN" id="28R-M0-scE"/>
+                        <outlet property="scrollView" destination="7c7-o2-mU8" id="NER-bq-8sL"/>
+                        <outlet property="shareButton" destination="A3u-5S-KwI" id="Ebe-T6-DmD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yrm-Vt-TpD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let sceneConfiguration = UISceneConfiguration(
             name: "Main",
             sessionRole: connectingSceneSession.role
-            )
+        )
         sceneConfiguration.delegateClass = SceneDelegate.self
         return sceneConfiguration
     }

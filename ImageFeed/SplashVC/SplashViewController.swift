@@ -9,48 +9,48 @@ import UIKit
 import ProgressHUD
 
 final class SplashViewController: UIViewController {
-
-    private var imageView: UIImageView = {
+    
+    lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "logo")
         return imageView
     }()
-
-
+    
+    
     private let networkService = OAuth2Service.shared
     private let oauthToTokenStorage = OAuth2TokenStorage()
-    private let profileService = ProfileAuth.shared
+    private let profileService = ProfileService.shared
     private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setNeedsStatusBarAppearanceUpdate()
     }
-
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         .lightContent
     }
-
+    
     private func showAlert() {
         let alertController = UIAlertController(
             title: "Something was wrong:(",
             message: "Can't log in to the system",
             preferredStyle: .alert
-            )
-
+        )
+        
         let action = UIAlertAction(title: "OK", style: .cancel) { [weak self] _ in
             guard let self = self else { return }
             switchToAuthViewController()
         }
-
+        
         alertController.addAction(action)
         present(alertController, animated: true)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         view.backgroundColor = .ypBlack
         view.addSubview(imageView)
         NSLayoutConstraint.activate([
@@ -58,20 +58,20 @@ final class SplashViewController: UIViewController {
             imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-
+        
         if let token = oauthToTokenStorage.token {
             fetchProfile(with: token)
         } else {
-
+            
             if !networkService.isLoading {
                 switchToAuthViewController()
             }
         }
     }
-
+    
     private func switchToAuthViewController() {
         guard let authVC = UIStoryboard(name: "Main", bundle: .main)
             .instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController
@@ -80,7 +80,7 @@ final class SplashViewController: UIViewController {
         authVC.modalPresentationStyle = .fullScreen
         present(authVC, animated: true)
     }
-
+    
     private func switchToTabBarController() {
         guard let window = UIApplication.shared.windows.first else {
             assertionFailure("Invalid Configuration")
@@ -99,15 +99,15 @@ final class SplashViewController: UIViewController {
 
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
-
+        
         UIBlockingProgressHUD.show()
-
+        
         networkService.isLoading = true
         dismiss(animated: true) {
             self.fetchOAuthToken(with: code)
         }
     }
-
+    
     private func fetchOAuthToken(with code: String) {
         networkService.fetchOAuthToken(code: code) { [weak self] result in
             guard let self = self else { return }
@@ -123,7 +123,7 @@ extension SplashViewController: AuthViewControllerDelegate {
             }
         }
     }
-
+    
     private func fetchProfile(with token: String) {
         profileService.fetchProfile(token) { [weak self] result in
             guard let self = self else { return }
@@ -139,3 +139,5 @@ extension SplashViewController: AuthViewControllerDelegate {
         }
     }
 }
+
+
