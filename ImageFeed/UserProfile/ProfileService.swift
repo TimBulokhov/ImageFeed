@@ -7,25 +7,12 @@
 
 import Foundation
 
-final class ProfileAuth {
+final class ProfileService {
     
-    struct Profile {
-        let username: String
-        let name: String
-        let loginName: String
-        let bio: String?
-    }
-    
-    struct ProfileResult: Decodable {
-        let username: String
-        let firstName: String
-        let lastName: String?
-        let bio: String?
-    }
     var profile: ProfileResult?
     private var task: URLSessionTask?
     private var urlSession = URLSession.shared
-    static let shared = ProfileAuth()
+    static let shared = ProfileService()
 
     func fetchProfile(_ token: String, completion: @escaping (Result<ProfileResult, Error>) -> Void) {
 

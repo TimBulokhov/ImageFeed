@@ -5,17 +5,6 @@
 //  Created by Timofey Bulokhov on 29.02.2024.
 //
 
-import Foundation
-
-enum NetworkError: Error {
-    case httpStatusCode(Int)
-    case urlRequestError(Error)
-    case urlSessionError(Error)
-}
-
-enum ParseError: Error {
-    case decodeError(Error)
-}
 
 import Foundation
 
