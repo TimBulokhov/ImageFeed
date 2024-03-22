@@ -13,6 +13,9 @@ import WebKit
 final class ProfileViewController: UIViewController {
     
     private let profileService = ProfileService.shared
+    private var profileImageServiceObserver: NSObjectProtocol?
+    private let profileImageService = ProfileImageService.shared
+    private let profileImageServiceNotification = ProfileImageService.didChangeNotification
     
     private let profileImageView: UIImageView = {
         let imageView = UIImageView()

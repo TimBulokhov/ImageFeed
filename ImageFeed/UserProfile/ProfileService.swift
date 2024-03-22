@@ -8,43 +8,47 @@
 import Foundation
 
 final class ProfileService {
+    static let shared = ProfileService()
     
-    var profile: ProfileResult?
+    private let urlSession = URLSession.shared
     private var task: URLSessionTask?
-    private var urlSession = URLSession.shared
-    static var shared = ProfileService()
-    
-    private init() {
-        
-    }
+    private(set) var profile: Profile?
     
     func fetchProfile(_ token: String, completion: @escaping (Result<ProfileResult, Error>) -> Void) {
-        
-        assert(Thread.isMainThread)
-        
         task?.cancel()
         
-        guard var request = URLRequest.makeHTTPRequest(path: "/me", httpMethod: "GET") else {
-            assertionFailure("Failed to make HTTP request")
-            return
-        }
+        let request = makeRequest(token: token)
         
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
-            guard let self = self else { return }
-            
+        let task = urlSession.requestTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
+            guard let self = self else {
+                return
+            }
             switch result {
-            case .success(let profileResult):
-                self.profile = profileResult
-                completion(.success(profileResult))
-                
+            case .success(let profile):
+                self.profile = Profile(result: profile)
+                completion(.success(profile))
             case .failure(let error):
                 completion(.failure(error))
             }
-            self.task = nil
         }
+        
         self.task = task
         task.resume()
+    }
+    
+    private func makeRequest(token: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.path = unsplashProfileUrlString
+        
+        guard let url = urlComponents.url(relativeTo: defaultBaseURL) else {
+            fatalError("Failed to create URL")
+            
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
+        
     }
 }

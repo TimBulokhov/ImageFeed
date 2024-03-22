@@ -5,58 +5,70 @@
 //  Created by Timofey Bulokhov on 01.03.2024.
 //
 
-import UIKit
+import Foundation
+
+struct UserResult: Codable {
+    let profileImage: ImageResult
+    
+    private enum CodingKeys: String, CodingKey {
+        case profileImage = "profile_image"
+    }
+}
+
+struct ImageResult: Codable {
+    let small: String
+    let medium: String
+    let large: String
+}
 
 final class ProfileImageService {
     
-    private struct UserResult: Decodable {
-        let profileImage: ProfileImage
-    }
-    
-    private struct ProfileImage: Decodable {
-        let small: String
-        let medium: String
-        let large: String
-    }
+    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
     
     private var task: URLSessionTask?
     private(set) var avatarURL: String?
-    
+    static let shared = ProfileImageService()
     private let urlSession = URLSession.shared
     
-    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
-    static let shared = ProfileImageService()
-    
-    func fetchProfileImageURL(username: String, completion: @escaping (Result<String, Error>) -> Void) {
+    func fetchProfileImageURL(username: String, token: String, _ completion: @escaping (Result<String, Error>) -> Void) {
+        task?.cancel()
         
-        guard var request = URLRequest.makeHTTPRequest(path: "/users/\(username)", httpMethod: "GET"),
-              let token = OAuth2TokenStorage.shared.token else {
-            assertionFailure("Failed to make HTTP request")
-            return
-        }
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
-            
-            guard let self = self else { return }
+        let request = makeRequest(token: token, username: username)
+        let task = urlSession.requestTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
+            guard let self = self else {
+                return
+            }
             
             switch result {
-            case .success(let user):
-                completion(.success(user.profileImage.medium))
-                NotificationCenter.default.post(
-                    name: ProfileImageService.didChangeNotification,
-                    object: self,
-                    userInfo: ["URL": user.profileImage.medium]
-                )
-                self.avatarURL = user.profileImage.medium
-                self.task = nil
+            case .success(let profileImage):
+                self.avatarURL = profileImage.profileImage.medium
+                completion(.success(profileImage.profileImage.medium))
                 
+                NotificationCenter.default
+                    .post(name: ProfileImageService.didChangeNotification,
+                          object: self,
+                          userInfo: ["URL": profileImage.profileImage.medium])
             case .failure(let error):
-                self.task = nil
                 completion(.failure(error))
             }
+            self.task = nil
         }
         self.task = task
         task.resume()
+    }
+    
+    private func makeRequest(token: String, username: String) -> URLRequest {
+        var urlComponents = URLComponents()
+        urlComponents.path = unsplashUsersUrlString + "/\(username)"
+        
+        guard let url = urlComponents.url(relativeTo: defaultBaseURL) else {
+            assertionFailure("Failed to create URL")
+            return URLRequest(url: URL(string: "")!)
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return request
     }
 }

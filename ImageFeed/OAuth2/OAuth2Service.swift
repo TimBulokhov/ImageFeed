@@ -9,58 +9,34 @@ import Foundation
 
 final class OAuth2Service {
     
-    struct OAuthTokenResponseBody: Decodable {
-        let accessToken: String
-        let tokenType: String
-        let scope: String
-        let createdAt: Int
-    }
-    
-    enum ParseError: Error {
-        case decodeError(Error)
-    }
-    
     static let shared = OAuth2Service()
-    
-    private init() {
-        
-    }
-    var isLoading = false
+    private let urlSession = URLSession.shared
     private var task: URLSessionTask?
     private var lastCode: String?
-    private let urlSession = URLSession.shared
-    private var token: String? {
-        get {
-            return OAuth2TokenStorage.shared.token
-        }
-        set {
-            OAuth2TokenStorage.shared.token = newValue
-        }
-    }
     
-    func fetchOAuthToken(code: String, completion: @escaping (Result<String, Error>) -> Void) {
-        assert(Thread.isMainThread)
+    public func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
         
-        if lastCode == code { return }
-        task?.cancel()
-        lastCode = code
-        
-        guard let request = makeRequest(with: code) else {
-            assertionFailure("Failed to make request")
+        guard lastCode != code else {
             return
         }
         
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
+        task?.cancel()
+        lastCode = code
+        
+        let request = makeRequest(code: code)
+        let task = urlSession.requestTask(for: request) { [weak self] (result: Result<OAuth2TokenResponseBody, Error>) in
+            guard let self = self else {
+                return
+            }
             
-            guard let self = self else { return }
+            self.task = nil
+            
             
             switch result {
-            case .success(let tokenResponseBody):
-                completion(.success(tokenResponseBody.accessToken))
-                self.task = nil
+            case .success(let responseBody):
+                let authToken = responseBody.accessToken
+                completion(.success(authToken))
             case .failure(let error):
-                self.lastCode = nil
-                self.task = nil
                 completion(.failure(error))
             }
         }
@@ -68,29 +44,20 @@ final class OAuth2Service {
         task.resume()
     }
     
-    private func makeRequest(with code: String) -> URLRequest? {
-        
-        guard var urlComponents = URLComponents(string: ApiConstants.accessTokenURL) else {
-            assertionFailure("Failed to make URL Components from \(ApiConstants.accessTokenURL)")
-            return nil
-        }
-        
-        urlComponents.queryItems = [
+    private func makeRequest(code: String) -> URLRequest {
+        var urlComponents = URLComponents(string: unsplashOAuth2TokenURLString)
+        urlComponents?.queryItems = [
             URLQueryItem(name: "client_id", value: ApiConstants.accessKey),
             URLQueryItem(name: "client_secret", value: ApiConstants.secretKey),
             URLQueryItem(name: "redirect_uri", value: ApiConstants.redirectURI),
             URLQueryItem(name: "code", value: code),
             URLQueryItem(name: "grant_type", value: "authorization_code")
         ]
-        
-        guard let url = urlComponents.url else {
-            assertionFailure("Failed to make URL from \(urlComponents)")
-            return nil
+        guard let url = urlComponents?.url else {
+            fatalError("Unable to create URL")
         }
-        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        
         return request
     }
 }
