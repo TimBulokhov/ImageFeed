@@ -12,9 +12,6 @@ final class OAuth2TokenStorage {
     
     static var shared = OAuth2TokenStorage()
     
-    private init() {
-        
-    }
     
     private enum KeysInStorage: String {
         case token
