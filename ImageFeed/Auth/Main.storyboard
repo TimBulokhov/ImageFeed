@@ -76,15 +76,15 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2We-83-UpX">
-                                <rect key="frame" x="9" y="9" width="24" height="24"/>
+                                <rect key="frame" x="9" y="9" width="9" height="22"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="nav_back_button"/>
                                 <connections>
-                                    <action selector="didTapBackButton:" destination="07H-Nh-fC8" eventType="touchUpInside" id="FKX-9p-RVW"/>
+                                    <action selector="didTapBackButton:" destination="07H-Nh-fC8" eventType="touchUpInside" id="jaR-Ut-PWO"/>
                                 </connections>
                             </button>
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iKn-WU-H81">
-                                <rect key="frame" x="0.0" y="41" width="414" height="4"/>
+                                <rect key="frame" x="0.0" y="39" width="414" height="4"/>
                                 <color key="progressTintColor" name="YP Black"/>
                             </progressView>
                         </subviews>
@@ -104,8 +104,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="939-us-qQG"/>
                     <connections>
-                        <outlet property="progressView" destination="iKn-WU-H81" id="TbF-ml-0Ws"/>
-                        <outlet property="webView" destination="yuY-ib-BvA" id="RgP-28-L0t"/>
+                        <outlet property="progressView" destination="iKn-WU-H81" id="gxE-4t-ZSM"/>
+                        <outlet property="webView" destination="yuY-ib-BvA" id="C3X-5u-S0v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Zb-2o-MkI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -149,7 +149,7 @@
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <state key="normal" title=" " image="like_button_on"/>
                                                     <connections>
-                                                        <action selector="likeButtonClicked" destination="jEp-Cf-eXW" eventType="touchUpInside" id="nYc-eE-ziw"/>
+                                                        <action selector="likeButtonClicked" destination="jEp-Cf-eXW" eventType="touchUpInside" id="BJJ-h4-1Zp"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8 июня 2023" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AFB-JZ-EDP">
@@ -180,9 +180,9 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.1019607843" green="0.1058823529" blue="0.1333333333" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
-                                            <outlet property="cellImage" destination="mh8-NC-hs1" id="PdI-O9-wS9"/>
-                                            <outlet property="dateLabel" destination="AFB-JZ-EDP" id="sDn-M4-DDE"/>
-                                            <outlet property="likeButton" destination="biT-01-jTT" id="fZs-3Q-r0T"/>
+                                            <outlet property="cellImage" destination="mh8-NC-hs1" id="9zj-Im-E0H"/>
+                                            <outlet property="dateLabel" destination="AFB-JZ-EDP" id="IDz-vK-in8"/>
+                                            <outlet property="likeButton" destination="biT-01-jTT" id="ubr-f4-h7l"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -204,7 +204,7 @@
                     <tabBarItem key="tabBarItem" title="" image="tab_editorial_active" id="Yry-pi-Yah"/>
                     <navigationItem key="navigationItem" id="AEf-md-pd5"/>
                     <connections>
-                        <outlet property="tableView" destination="sOh-i2-KmV" id="CIh-vN-UUn"/>
+                        <outlet property="tableView" destination="sOh-i2-KmV" id="Lnl-r7-xiF"/>
                         <segue destination="2pA-5f-YJk" kind="presentation" identifier="ShowSingleImage" id="ObC-q9-dAq"/>
                     </connections>
                 </viewController>
@@ -248,9 +248,9 @@
                                     <constraint firstAttribute="height" constant="50" id="dGq-cA-wiG"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="Sharing"/>
+                                <state key="normal" image="share_button"/>
                                 <connections>
-                                    <action selector="didTapShareButton" destination="2pA-5f-YJk" eventType="touchUpInside" id="91v-9H-kMF"/>
+                                    <action selector="didShareButtonTap:" destination="2pA-5f-YJk" eventType="touchUpInside" id="dTU-b6-UeM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iwd-Cw-sF3">
@@ -260,9 +260,9 @@
                                     <constraint firstAttribute="width" constant="48" id="BH7-8T-9v0"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="Backward"/>
+                                <state key="normal" image="back_button"/>
                                 <connections>
-                                    <action selector="didTapBackButton" destination="2pA-5f-YJk" eventType="touchUpInside" id="dCS-Lz-vJx"/>
+                                    <action selector="didTapBackButton:" destination="2pA-5f-YJk" eventType="touchUpInside" id="ZXn-sy-C68"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -281,10 +281,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="S8i-Kj-Bra"/>
                     <connections>
-                        <outlet property="backButton" destination="Iwd-Cw-sF3" id="XBE-xx-NRg"/>
-                        <outlet property="imageView" destination="On4-5O-9lN" id="28R-M0-scE"/>
-                        <outlet property="scrollView" destination="7c7-o2-mU8" id="NER-bq-8sL"/>
-                        <outlet property="shareButton" destination="A3u-5S-KwI" id="Ebe-T6-DmD"/>
+                        <outlet property="imageView" destination="On4-5O-9lN" id="zqF-Kw-C61"/>
+                        <outlet property="scrollView" destination="7c7-o2-mU8" id="Tm8-jF-MA4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yrm-Vt-TpD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -330,12 +328,12 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
-        <image name="Backward" width="24" height="24"/>
-        <image name="Sharing" width="50" height="50"/>
         <image name="auth_screen_logo" width="60" height="60"/>
-        <image name="like_button_on" width="44" height="44"/>
-        <image name="nav_back_button" width="24" height="24"/>
+        <image name="back_button" width="9" height="16"/>
+        <image name="like_button_on" width="42" height="42"/>
+        <image name="nav_back_button" width="9" height="16"/>
         <image name="shadowing" width="343" height="30"/>
+        <image name="share_button" width="51" height="50"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <namedColor name="YP Black">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

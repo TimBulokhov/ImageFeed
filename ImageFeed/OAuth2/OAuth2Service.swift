@@ -24,13 +24,12 @@ final class OAuth2Service {
         lastCode = code
         
         let request = makeRequest(code: code)
-        let task = urlSession.requestTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
+        let task = urlSession.requestTask(for: request) { [weak self] (result: Result<OAuth2TokenResponseBody, Error>) in
             guard let self = self else {
                 return
             }
             
             self.task = nil
-            
             
             switch result {
             case .success(let responseBody):
@@ -53,15 +52,14 @@ final class OAuth2Service {
             URLQueryItem(name: "code", value: code),
             URLQueryItem(name: "grant_type", value: "authorization_code")
         ]
+        
         guard let url = urlComponents?.url else {
             fatalError("Unable to create URL")
         }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         return request
     }
+    
 }
-
-
-
-

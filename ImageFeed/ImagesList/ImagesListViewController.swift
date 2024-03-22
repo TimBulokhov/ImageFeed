@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class ImagesListViewController: UIViewController {
-    @IBOutlet private var tableView: UITableView!
+    
+    @IBOutlet private weak var tableView: UITableView!
     
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var photos: [Photo] = []
@@ -155,8 +157,8 @@ extension ImagesListViewController: ImagesListCellDelegate {
     
     private func showErrorAlert() {
         let alert = UIAlertController(
-            title: "Something was wrong :(",
-            message: "Can't like this image",
+            title: "Somethins war wrong :(",
+            message: "Cant like this image",
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(
             title: "OK",

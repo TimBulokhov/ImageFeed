@@ -7,6 +7,13 @@
 
 import Foundation
 
+enum NetworkError: Error {
+    case httpStatusCode(Int)
+    case urlRequestError(Error)
+    case jsonDecodeError
+    case urlSessionError
+}
+
 extension URLSession {
     func requestTask<Model: Decodable> (
         for request: URLRequest, completion: @escaping (Result<Model, Error>) -> Void) -> URLSessionTask {

@@ -7,6 +7,44 @@
 
 import Foundation
 
+struct Photo {
+    let id: String
+    let size: CGSize
+    let createdAt: Date?
+    let welcomeDescription: String?
+    let thumbImageURL: String
+    let fullImageURL: String
+    let isLiked: Bool
+}
+
+struct UrlsResult: Decodable {
+    let raw: String
+    let full: String
+    let regular: String
+    let small : String
+    let thumb: String
+}
+
+struct PhotoResult: Decodable {
+    let id: String
+    let createdAt: String?
+    let width: Int
+    let height: Int
+    let description: String?
+    let likedByUser: Bool
+    let urls: UrlsResult
+    
+    private enum CodingKeys: String, CodingKey {
+        case createdAt = "created_at"
+        case likedByUser = "liked_by_user"
+        case id, width, height, description, urls
+    }
+}
+
+struct LikeResult: Decodable {
+    let photo: PhotoResult
+}
+
 final class ImageListService {
     
     static let shared = ImageListService()
@@ -18,6 +56,8 @@ final class ImageListService {
     private let urlSession = URLSession.shared
     private let dateFormatter = ISO8601DateFormatter()
     static let didChangeNotification = Notification.Name(rawValue: "ImagesListServiceDidChange")
+    
+    // - fetch photos
     
     func fetchPhotosNextPage() {
         guard task == nil else {
@@ -73,6 +113,8 @@ final class ImageListService {
         }
     }
     
+    // - change like state
+    
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         
         task?.cancel()
@@ -107,6 +149,8 @@ final class ImageListService {
             }
         }
     }
+    
+    // - request
     
     private func makeRequest(path: String) -> URLRequest? {
         guard let baseURL = URL(string: path, relativeTo: ApiConstants.defaultBaseURL) else {

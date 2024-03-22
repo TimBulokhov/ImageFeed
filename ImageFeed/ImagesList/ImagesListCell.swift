@@ -14,9 +14,11 @@ protocol ImagesListCellDelegate: AnyObject {
 
 final class ImagesListCell: UITableViewCell {
     static let reuseIdentifier = "ImagesListCell"
-    @IBOutlet var cellImage: UIImageView!
-    @IBOutlet var dateLabel: UILabel!
-    @IBOutlet var likeButton: UIButton!
+    
+    // MARK: Outlets
+    @IBOutlet weak var cellImage: UIImageView!
+    @IBOutlet weak var likeButton: UIButton!
+    @IBOutlet weak var dateLabel: UILabel!
     
     @IBAction private func likeButtonClicked() {
         delegate?.imageListCellDidTapLike(self)
@@ -33,6 +35,5 @@ final class ImagesListCell: UITableViewCell {
         let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
         likeButton.setImage(likeImage, for: .normal)
     }
+    
 }
-
-

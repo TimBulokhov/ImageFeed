@@ -7,12 +7,11 @@
 
 import UIKit
 import Kingfisher
-import SwiftKeychainWrapper
-import WebKit
 
 final class ProfileViewController: UIViewController {
     
     private let profileService = ProfileService.shared
+    
     private var profileImageServiceObserver: NSObjectProtocol?
     private let profileImageService = ProfileImageService.shared
     private let profileImageServiceNotification = ProfileImageService.didChangeNotification
@@ -163,13 +162,13 @@ final class ProfileViewController: UIViewController {
     }
     
     @objc private func didTapLogoutButton() {
-        let alert = UIAlertController(title: "Пока, пока!", message: "Уверены что хотите выйти?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Да", style: .default, handler: { [weak self] _ in
+        let alert = UIAlertController(title: "Exit", message: "Are you sure to exit?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] _ in
             guard let self = self else { return }
             self.logOut()
         }))
         
-        alert.addAction(UIAlertAction(title: "Нет", style: .default))
+        alert.addAction(UIAlertAction(title: "No", style: .default))
         self.present(alert, animated: true)
     }
     
@@ -185,4 +184,3 @@ final class ProfileViewController: UIViewController {
     }
     
 }
-

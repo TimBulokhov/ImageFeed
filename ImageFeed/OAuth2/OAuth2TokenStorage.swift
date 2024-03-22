@@ -9,6 +9,7 @@ import Foundation
 import SwiftKeychainWrapper
 
 final class OAuth2TokenStorage {
+    
     enum Keys: String {
         case bearerToken
     }
