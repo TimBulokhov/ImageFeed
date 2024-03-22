@@ -38,9 +38,9 @@ final class ProfileService {
     
     private func makeRequest(token: String) -> URLRequest {
         var urlComponents = URLComponents()
-        urlComponents.path = unsplashProfileUrlString
+        urlComponents.path = ApiConstants.unsplashProfileUrlString
         
-        guard let url = urlComponents.url(relativeTo: defaultBaseURL) else {
+        guard let url = urlComponents.url(relativeTo: ApiConstants.defaultBaseURL) else {
             fatalError("Failed to create URL")
             
         }

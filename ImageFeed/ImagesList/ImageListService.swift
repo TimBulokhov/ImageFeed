@@ -35,7 +35,7 @@ final class ImageListService {
         
         request.httpMethod = "GET"
         
-        let task = urlSession.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
+        let task = urlSession.requestTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
             guard let self = self else {
                 return
             }
@@ -85,7 +85,7 @@ final class ImageListService {
             request.httpMethod = "DELETE"
         }
         
-        _ = urlSession.objectTask(for: request) { [weak self] (result: Result<LikeResult, Error>) in
+        _ = urlSession.requestTask(for: request) { [weak self] (result: Result<LikeResult, Error>) in
             guard let self else { return }
             switch result {
             case .success:

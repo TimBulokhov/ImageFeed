@@ -59,9 +59,9 @@ final class ProfileImageService {
     
     private func makeRequest(token: String, username: String) -> URLRequest {
         var urlComponents = URLComponents()
-        urlComponents.path = unsplashUsersUrlString + "/\(username)"
+        urlComponents.path = ApiConstants.unsplashUsersUrlString + "/\(username)"
         
-        guard let url = urlComponents.url(relativeTo: defaultBaseURL) else {
+        guard let url = urlComponents.url(relativeTo: ApiConstants.defaultBaseURL) else {
             assertionFailure("Failed to create URL")
             return URLRequest(url: URL(string: "")!)
         }

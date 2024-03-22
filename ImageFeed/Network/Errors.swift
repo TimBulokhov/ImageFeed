@@ -8,10 +8,10 @@
 import Foundation
 
 enum NetworkError: Error {
-    case decodingError(Error)
     case httpStatusCode(Int)
     case urlRequestError(Error)
-    case urlSessionError(Error)
+    case jsonDecodeError
+    case urlSessionError
 }
 
 enum ParseError: Error {

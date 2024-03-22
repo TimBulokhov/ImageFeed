@@ -24,7 +24,7 @@ final class OAuth2Service {
         lastCode = code
         
         let request = makeRequest(code: code)
-        let task = urlSession.requestTask(for: request) { [weak self] (result: Result<OAuth2TokenResponseBody, Error>) in
+        let task = urlSession.requestTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
             guard let self = self else {
                 return
             }
@@ -45,7 +45,7 @@ final class OAuth2Service {
     }
     
     private func makeRequest(code: String) -> URLRequest {
-        var urlComponents = URLComponents(string: unsplashOAuth2TokenURLString)
+        var urlComponents = URLComponents(string: ApiConstants.unsplashOAuth2TokenURLString)
         urlComponents?.queryItems = [
             URLQueryItem(name: "client_id", value: ApiConstants.accessKey),
             URLQueryItem(name: "client_secret", value: ApiConstants.secretKey),
