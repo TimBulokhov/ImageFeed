@@ -6,77 +6,56 @@
 //
 
 import UIKit
+import Kingfisher
 
-final class SingleImageViewController : UIViewController {
+final class SingleImageViewController: UIViewController {
     
-    @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private weak var scrollView: UIScrollView!
-    
-    @IBAction private func didShareButtonTap(_ sender: Any) {
-        guard let image = imageView.image else { return }
-        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
+    var imageURL: URL! {
+        didSet {
+            guard isViewLoaded else { return }
+            setImage()
+        }
     }
     
-    @IBAction private func didTapBackButton(_ sender: Any) {
+    @IBOutlet private weak var scrollView: UIScrollView!
+    @IBOutlet private var imageView: UIImageView!
+    
+    @IBAction private func didTapBackButton(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
     }
     
-    var fullImageURL: URL!
-    
-    var image: UIImage! {
-        didSet {
-            guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
-        }
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
-    func showImage() {
-        UIBlockingProgressHUD.show()
-        imageView.kf.setImage(with: fullImageURL) { [weak self] result in
-            guard let self = self else { return }
-            switch result {
-            case .success(let imageResult):
-                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
-            case .failure:
-                self.showErrorAlert()
-            }
-            UIBlockingProgressHUD.dismiss()
-        }
-    }
-    
-    private func showErrorAlert() {
-        let alert = UIAlertController(
-            title: "Something was wrong :(",
-            message: "Try Again?",
-            preferredStyle: .alert
-        )
-        
-        let dismissAction = UIAlertAction(title: "No", style: .default ) { _ in
-            alert.dismiss(animated: true)
-        }
-        
-        let retryAction = UIAlertAction(title: "Yes", style: .default) { [weak self] _ in
-            guard let self = self else { return }
-            self.showImage()
-        }
-        
-        alert.addAction(dismissAction)
-        alert.addAction(retryAction)
-        self.present(alert, animated: true)
+    @IBAction private func didTapShareButton(_ sender: UIButton) {
+        let share = UIActivityViewController(activityItems: [imageView.image as Any], applicationActivities: nil)
+        present(share, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView.minimumZoomScale = 0.1
-        scrollView.maximumZoomScale = 1.25
-        showImage()
+        setImage()
+    }
+}
+
+extension SingleImageViewController: UIScrollViewDelegate {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        imageView
+    }
+}
+
+extension SingleImageViewController {
+    
+    private func setImage() {
+        UIBlockingProgressHUD.show()
+        imageView.kf.setImage(with: imageURL) { [weak self] result in
+            UIBlockingProgressHUD.dismiss()
+            
+            guard let self else { return }
+            switch result {
+            case .success(let imageResult):
+                self.rescaleAndCenterImageInScrollView(image: imageResult.image)
+            case .failure:
+                self.showAlert()
+            }
+        }
     }
     
     private func rescaleAndCenterImageInScrollView(image: UIImage) {
@@ -95,11 +74,14 @@ final class SingleImageViewController : UIViewController {
         let y = (newContentSize.height - visibleRectSize.height) / 2
         scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
     }
-}
-
-extension SingleImageViewController: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        imageView
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Download error", message: "Something was wrong, please try again :(", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Back", style: .default))
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { (action: UIAlertAction) in
+            self.setImage()
+        }))
+        self.present(alert, animated: true)
     }
 }
 
