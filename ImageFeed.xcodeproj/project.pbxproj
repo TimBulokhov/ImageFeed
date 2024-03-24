@@ -32,6 +32,7 @@
 		1272CDD92B6F9DEF0062B044 /* ImagesListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDD82B6F9DEF0062B044 /* ImagesListCell.swift */; };
 		1272CDDF2B6FB1450062B044 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDDE2B6FB1450062B044 /* ProfileViewController.swift */; };
 		1272CDE52B6FE53E0062B044 /* SingleImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1272CDE42B6FE53E0062B044 /* SingleImageViewController.swift */; };
+		84217DED2BB0587A00061AA3 /* imageZoomer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84217DEC2BB0587A00061AA3 /* imageZoomer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,6 +73,7 @@
 		1272CDD82B6F9DEF0062B044 /* ImagesListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListCell.swift; sourceTree = "<group>"; };
 		1272CDDE2B6FB1450062B044 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		1272CDE42B6FE53E0062B044 /* SingleImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageViewController.swift; sourceTree = "<group>"; };
+		84217DEC2BB0587A00061AA3 /* imageZoomer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = imageZoomer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 		1272CDE32B6FE51A0062B044 /* SingleImageView */ = {
 			isa = PBXGroup;
 			children = (
+				84217DEC2BB0587A00061AA3 /* imageZoomer.swift */,
 				1272CDE42B6FE53E0062B044 /* SingleImageViewController.swift */,
 			);
 			path = SingleImageView;
@@ -293,6 +296,7 @@
 				126361852B8B451700F20C22 /* Constants.swift in Sources */,
 				125B1DCD2B90FE2A00D11139 /* URLRequestExtension.swift in Sources */,
 				1272CDE52B6FE53E0062B044 /* SingleImageViewController.swift in Sources */,
+				84217DED2BB0587A00061AA3 /* imageZoomer.swift in Sources */,
 				1251FACA2B9234D70050C270 /* WebViewController.swift in Sources */,
 				1259A7642B62CB6C0001A66A /* SceneDelegate.swift in Sources */,
 				1251FAC32B9232270050C270 /* UIBlockingProgresssHUD.swift in Sources */,
