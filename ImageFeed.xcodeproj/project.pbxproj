@@ -163,9 +163,9 @@
 		1263618F2B8B5CD400F20C22 /* OAuth2 */ = {
 			isa = PBXGroup;
 			children = (
+				126954552BADB7E6006EB18E /* OAuth2TokenResponseBody.swift */,
 				126361922B8B5D1600F20C22 /* OAuth2Service.swift */,
 				126361942B8B5D3200F20C22 /* OAuth2TokenStorage.swift */,
-				126954552BADB7E6006EB18E /* OAuth2TokenResponseBody.swift */,
 			);
 			path = OAuth2;
 			sourceTree = "<group>";

@@ -228,11 +228,9 @@
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="On4-5O-9lN" firstAttribute="height" secondItem="nW4-CG-xaI" secondAttribute="height" multiplier="0.462054" id="5Ol-SP-IRy"/>
                                     <constraint firstItem="On4-5O-9lN" firstAttribute="top" secondItem="7c7-o2-mU8" secondAttribute="top" id="Zm8-Nc-o7O"/>
-                                    <constraint firstItem="On4-5O-9lN" firstAttribute="trailing" secondItem="7c7-o2-mU8" secondAttribute="trailing" id="iS3-ca-OjM"/>
-                                    <constraint firstItem="On4-5O-9lN" firstAttribute="width" secondItem="nW4-CG-xaI" secondAttribute="width" id="qK9-wj-4rh"/>
-                                    <constraint firstItem="On4-5O-9lN" firstAttribute="leading" secondItem="7c7-o2-mU8" secondAttribute="leading" id="sQT-tQ-QGv"/>
+                                    <constraint firstItem="On4-5O-9lN" firstAttribute="leading" secondItem="7c7-o2-mU8" secondAttribute="leading" id="erE-JC-25a"/>
+                                    <constraint firstAttribute="trailing" secondItem="On4-5O-9lN" secondAttribute="trailing" id="iS3-ca-OjM"/>
                                     <constraint firstAttribute="bottom" secondItem="On4-5O-9lN" secondAttribute="bottom" id="zcy-Ws-mpI"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="Ih2-gT-Qy8"/>
@@ -273,10 +271,10 @@
                             <constraint firstItem="Iwd-Cw-sF3" firstAttribute="top" secondItem="7rZ-gu-hXj" secondAttribute="top" constant="4" id="R9e-pI-tLD"/>
                             <constraint firstItem="7c7-o2-mU8" firstAttribute="top" secondItem="jr4-HK-T2x" secondAttribute="top" id="ZuY-e3-Iow"/>
                             <constraint firstItem="A3u-5S-KwI" firstAttribute="centerX" secondItem="7rZ-gu-hXj" secondAttribute="centerX" id="gI7-jt-YBu"/>
-                            <constraint firstItem="7c7-o2-mU8" firstAttribute="trailing" secondItem="7rZ-gu-hXj" secondAttribute="trailing" id="jQH-KY-Tbj"/>
+                            <constraint firstAttribute="trailing" secondItem="7c7-o2-mU8" secondAttribute="trailing" id="jQH-KY-Tbj"/>
                             <constraint firstItem="Iwd-Cw-sF3" firstAttribute="leading" secondItem="7rZ-gu-hXj" secondAttribute="leading" constant="8" id="kD3-vm-80f"/>
                             <constraint firstAttribute="bottom" secondItem="7c7-o2-mU8" secondAttribute="bottom" id="xSd-OM-yyp"/>
-                            <constraint firstItem="7c7-o2-mU8" firstAttribute="leading" secondItem="7rZ-gu-hXj" secondAttribute="leading" id="zgw-kb-du1"/>
+                            <constraint firstItem="7c7-o2-mU8" firstAttribute="leading" secondItem="jr4-HK-T2x" secondAttribute="leading" id="zgw-kb-du1"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="S8i-Kj-Bra"/>
@@ -287,7 +285,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yrm-Vt-TpD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="929" y="128"/>
+            <point key="canvasLocation" x="928.98550724637687" y="127.90178571428571"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="VEF-AD-NWE">
