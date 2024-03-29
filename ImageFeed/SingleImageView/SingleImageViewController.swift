@@ -73,6 +73,7 @@ extension SingleImageViewController {
         kfManager.retrieveImage(with: imageURL) { [weak self] result in
             switch result {
             case .success(let value):
+                self?.image = value.image
                 self?.zoomImage.downloadStartImage(value.image)
             case .failure:
                 break
