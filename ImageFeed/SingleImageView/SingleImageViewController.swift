@@ -6,66 +6,91 @@
 //
 
 import UIKit
+import Kingfisher
 
 final class SingleImageViewController: UIViewController {
-    var image: UIImage! {
+    private lazy var zoomImage: imageZoomer = imageZoomer()
+    private let kfManager = KingfisherManager.shared
+    private var image: UIImage?
+    var imageURL: URL! {
         didSet {
             guard isViewLoaded else { return }
-            imageView.image = image
-            rescaleAndCenterImageInScrollView(image: image)
+            setImage()
         }
     }
     
-    @IBOutlet private var imageView: UIImageView!
+    private lazy var shareImageButton: UIButton = {
+        let shareImageButton = UIButton()
+        shareImageButton.setImage(UIImage(named: "share_button"), for: .normal)
+        shareImageButton.addTarget(self, action: #selector(didTapShareButton), for: .touchUpInside)
+        shareImageButton.layer.cornerRadius = 25.0
+        shareImageButton.backgroundColor = .ypBlack
+        return shareImageButton
+    }()
     
-    @IBOutlet private var scrollView: UIScrollView!
-    
-    @IBOutlet private var backButton: UIButton!
-    
-    @IBOutlet private var shareButton: UIButton!
-    
-    @IBAction func didTapBackButton() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func didTapShareButton() {
-        let share = UIActivityViewController(
-            activityItems: [image as Any],
-            applicationActivities: nil
-        )
+    @objc private func didTapShareButton(_ sender: UIButton) {
+        let share = UIActivityViewController(activityItems: [image as Any], applicationActivities: nil)
         present(share, animated: true, completion: nil)
     }
     
+    @IBAction private func didTapBackButton(_ sender: UIButton) {
+        dismiss(animated: true, completion: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        scrollView.minimumZoomScale = 0.1
-        scrollView.maximumZoomScale = 1.25
-        imageView.image = image
-        rescaleAndCenterImageInScrollView(image: image)
+        addSubViews()
+        addImageConstraints()
+        setImage()
     }
     
+    private func addSubViews() {
+        zoomImage.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(zoomImage, at: 0)
+        shareImageButton.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(shareImageButton, at: 1)
+    }
     
-    private func rescaleAndCenterImageInScrollView(image: UIImage) {
-        let minZoomScale = scrollView.minimumZoomScale
-        let maxZoomScale = scrollView.maximumZoomScale
-        view.layoutIfNeeded()
-        let visibleRectSize = scrollView.bounds.size
-        let imageSize = image.size
-        let hScale = visibleRectSize.width / imageSize.width
-        let vScale = visibleRectSize.height / imageSize.height
-        let scale = min(maxZoomScale, max(minZoomScale, max(hScale, vScale)))
-        scrollView.setZoomScale(scale, animated: false)
-        scrollView.layoutIfNeeded()
-        let newContentSize = scrollView.contentSize
-        let x = (newContentSize.width - visibleRectSize.width) / 2
-        let y = (newContentSize.height - visibleRectSize.height) / 2
-        scrollView.setContentOffset(CGPoint(x: x, y: y), animated: false)
+    private func addImageConstraints() {
+        NSLayoutConstraint.activate([
+            zoomImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            zoomImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            zoomImage.topAnchor.constraint(equalTo: view.topAnchor),
+            zoomImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            shareImageButton.heightAnchor.constraint(equalToConstant: 50),
+            shareImageButton.widthAnchor.constraint(equalToConstant: 50),
+            shareImageButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            shareImageButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
     }
 }
 
-extension SingleImageViewController: UIScrollViewDelegate {
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        imageView
+extension SingleImageViewController {
+    
+    private func setImage() {
+        UIBlockingProgressHUD.show()
+        
+        kfManager.retrieveImage(with: imageURL) { [weak self] result in
+            switch result {
+            case .success(let value):
+                self?.image = value.image
+                self?.zoomImage.downloadStartImage(value.image)
+            case .failure:
+                break
+            }
+            UIBlockingProgressHUD.dismiss()
+        }
+    }
+    
+    func showAlert() {
+        let alert = UIAlertController(title: "Download error", message: "Something was wrong, please try again :(", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Back", style: .default))
+        alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: { (action: UIAlertAction) in
+            self.setImage()
+        }))
+        self.present(alert, animated: true)
     }
 }
+
+
+

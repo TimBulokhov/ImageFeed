@@ -10,133 +10,120 @@ import ProgressHUD
 
 final class SplashViewController: UIViewController {
     
-    lazy var imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "logo")
+    private let oAuth2TokenStorage = OAuth2TokenStorage()
+    private let oAuth2Service = OAuth2Service.shared
+    private let profileService = ProfileService.shared
+    private let profileImageService = ProfileImageService.shared
+    private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
+    private var splashLogoImage: UIImageView = {
+        let image = UIImage(named: "splash_logo")
+        let imageView = UIImageView(image: image)
         return imageView
     }()
     
-    
-    private let networkService = OAuth2Service.shared
-    private let oauthToTokenStorage = OAuth2TokenStorage.shared
-    private let profileService = ProfileService.shared
-    private let showAuthenticationScreenSegueIdentifier = "ShowAuthenticationScreen"
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        setNeedsStatusBarAppearanceUpdate()
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        .lightContent
-    }
-    
-    private func showAlert() {
-        let alertController = UIAlertController(
-            title: "Something was wrong:(",
-            message: "Can't log in to the system",
-            preferredStyle: .alert
-        )
-        
-        let action = UIAlertAction(title: "OK", style: .cancel) { [weak self] _ in
-            guard let self = self else { return }
-            switchToAuthViewController()
-        }
-        
-        alertController.addAction(action)
-        present(alertController, animated: true)
+    private func initSplashImage() {
+        splashLogoImage.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(splashLogoImage)
+        NSLayoutConstraint.activate([
+            splashLogoImage.heightAnchor.constraint(equalToConstant: 78),
+            splashLogoImage.widthAnchor.constraint(equalToConstant: 75),
+            splashLogoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            splashLogoImage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .ypBlack
-        view.addSubview(imageView)
-        NSLayoutConstraint.activate([
-            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+        view.backgroundColor = UIColor(named: "ypBlack")
+        initSplashImage()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        if let token = oauthToTokenStorage.token {
-            fetchProfile(with: token)
-        } else {
-            if !networkService.isLoading {
-                switchToAuthViewController()
-            }
-        }
+        checkAuthToken()
     }
     
-    private func switchToAuthViewController() {
-        guard let authVC = UIStoryboard(name: "Main", bundle: .main)
-            .instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController
-        else { return }
-        authVC.delegate = self
-        authVC.modalPresentationStyle = .fullScreen
-        present(authVC, animated: true)
+    private func checkAuthToken() {
+        if oAuth2TokenStorage.token != nil {
+            guard let token = oAuth2TokenStorage.token else {
+                return
+            }
+            UIBlockingProgressHUD.show()
+            fetchProfile(token: token)
+        } else {
+            let storyboard = UIStoryboard(name: "Main", bundle: .main)
+            guard let authViewController =
+                    storyboard.instantiateViewController(withIdentifier: "AuthViewController") as? AuthViewController else {
+                return
+            }
+            
+            authViewController.delegate = self
+            authViewController.modalPresentationStyle = .fullScreen
+            self.present(authViewController, animated: true)
+        }
     }
     
     private func switchToTabBarController() {
-        guard let window = UIApplication.shared.windows.first else {
-            assertionFailure("Invalid Configuration")
-            return
-        }
-        let tabBar = UIStoryboard(name: "Main", bundle: .main).instantiateViewController(withIdentifier: "TabBarViewController")
-        window.rootViewController = tabBar
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        let tabBarController = UIStoryboard(name: "Main", bundle: .main)
+            .instantiateViewController(withIdentifier: "TabBarViewController")
+        window.rootViewController = tabBarController
     }
 }
 
-
-
-
-
-//MARK: - AuthViewControllerDelegate
-
 extension SplashViewController: AuthViewControllerDelegate {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String) {
-        
-        UIBlockingProgressHUD.show()
-        
-        networkService.isLoading = true
-        dismiss(animated: true) {
-            self.fetchOAuthToken(with: code)
+        dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            UIBlockingProgressHUD.show()
+            self.fetchOAuth2Token(code)
         }
     }
     
-    private func fetchOAuthToken(with code: String) {
-        networkService.fetchOAuthToken(code: code) { [weak self] result in
-            guard let self = self else { return }
+    private func fetchOAuth2Token(_ code: String) {
+        oAuth2Service.fetchOAuthToken(code) { [weak self] result in
+            guard let self = self else {
+                return
+            }
+            
             switch result {
             case .success(let token):
-                oauthToTokenStorage.token = token
-                fetchProfile(with: token)
+                self.oAuth2TokenStorage.token = token
+                self.fetchProfile(token: token)
+            case .failure:
                 UIBlockingProgressHUD.dismiss()
-            case.failure(let error):
-                UIBlockingProgressHUD.dismiss()
-                print(error.localizedDescription)
-                showAlert()
+                self.showErrorAlert(message: "Cant login in to the system")
+                break
             }
         }
     }
     
-    private func fetchProfile(with token: String) {
+    private func fetchProfile(token: String) {
         profileService.fetchProfile(token) { [weak self] result in
-            guard let self = self else { return }
+            guard let self = self else {
+                return
+            }
+            UIBlockingProgressHUD.dismiss()
             switch result {
-            case .success (let profile):
-                ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in }
-                UIBlockingProgressHUD.dismiss()
+            case .success(let profile):
+                self.profileImageService.fetchProfileImageURL(username: profile.username, token: token) { _ in }
                 self.switchToTabBarController()
-            case .failure(let error):
+            case .failure:
                 UIBlockingProgressHUD.dismiss()
-                assertionFailure(error.localizedDescription)
+                self.showErrorAlert(message: "Cant download your profile")
+                break
             }
         }
     }
+    
+    
+    private func showErrorAlert(message: String) {
+        let alertController = UIAlertController(title: "Something was wrong :(", message: message, preferredStyle: .alert)
+        let OKAction = UIAlertAction(title: "OK", style: .default) { (action:UIAlertAction!) in }
+        alertController.addAction(OKAction)
+        self.present(alertController, animated: true, completion:nil)
+    }
+    
 }
 
 

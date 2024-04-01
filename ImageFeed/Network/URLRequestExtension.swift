@@ -7,60 +7,41 @@
 
 import Foundation
 
-extension URLRequest {
-    static func makeHTTPRequest (
-        path: String,
-        httpMethod: String,
-        baseURL: URL? = ApiConstants.defaultBaseURL
-    ) -> URLRequest? {
-        guard let url = URL(string: path, relativeTo: baseURL) else {
-            assertionFailure("Failed to make url")
-            return nil
-        }
-        var request = URLRequest(url: url)
-        request.httpMethod = httpMethod
-        return request
-    }
+enum NetworkError: Error {
+    case httpStatusCode(Int)
+    case urlRequestError(Error)
+    case jsonDecodeError
+    case urlSessionError
 }
 
 extension URLSession {
-    
-    func objectTask<DecodingType: Decodable>(
-        for request: URLRequest,
-        completion: @escaping (Result<DecodingType, Error>) -> Void
-    ) -> URLSessionTask {
-        let task = dataTask(with: request) { data, response, error in
-            
-            if let error = error {
+    func requestTask<Model: Decodable> (
+        for request: URLRequest, completion: @escaping (Result<Model, Error>) -> Void) -> URLSessionTask {
+            let fillCompletion: (Result<Model, Error>) -> Void = { result in
                 DispatchQueue.main.async {
-                    completion(.failure(NetworkError.urlSessionError(error)))
+                    completion(result)
                 }
             }
             
-            if let response = response as? HTTPURLResponse {
-                if !(200..<300 ~= response.statusCode) {
-                    DispatchQueue.main.async {
-                        completion(.failure(NetworkError.httpStatusCode(response.statusCode)))
+            let task = dataTask(with: request, completionHandler: { data, response, error in
+                if let data = data, let response = response, let statusCode = (response as?  HTTPURLResponse)?.statusCode {
+                    if 200 ... 299 ~= statusCode {
+                        do {
+                            let result = try JSONDecoder().decode(Model.self, from: data)
+                            fillCompletion(.success(result))
+                        } catch {
+                            fillCompletion(.failure(NetworkError.jsonDecodeError))
+                        }
+                    } else {
+                        fillCompletion(.failure(NetworkError.httpStatusCode(statusCode)))
                     }
+                } else if let error = error {
+                    fillCompletion(.failure(NetworkError.urlRequestError(error)))
+                } else {
+                    fillCompletion(.failure(NetworkError.urlSessionError))
                 }
-            }
-            
-            if let data = data {
-                do {
-                    let decoder = JSONDecoder()
-                    decoder.keyDecodingStrategy = .convertFromSnakeCase
-                    let result = try decoder.decode(DecodingType.self, from: data)
-                    
-                    DispatchQueue.main.async {
-                        completion(.success(result))
-                    }
-                } catch {
-                    DispatchQueue.main.async {
-                        completion(.failure(ParseError.decodeError(error)))
-                    }
-                }
-            }
+            })
+            task.resume()
+            return task
         }
-        return task
-    }
 }
