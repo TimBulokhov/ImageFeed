@@ -15,7 +15,7 @@ final class ProfileViewController: UIViewController {
     private let profileImageService = ProfileImageService.shared
     private var profileImageServiceObserver: NSObjectProtocol?
     
-    //MARK: - UI elements
+    //MARK: - UI element
     
     private lazy var avatar: UIImageView = {
         let profileimage = UIImage(named: "userpic")
