@@ -73,14 +73,14 @@ final class WebViewTests: XCTestCase {
         
         //when
         let url = authHelper.authURL()
-        let urlString = url?.absoluteString
+        let urlString = url!.absoluteString
         
         //then
-        XCTAssertTrue(((urlString?.contains(configuration.authURLString)) != nil))
-        XCTAssertTrue(((urlString?.contains(configuration.accessKey)) != nil))
-        XCTAssertTrue(((urlString?.contains(configuration.redirectURI)) != nil))
-        XCTAssertTrue(((urlString?.contains("code")) != nil))
-        XCTAssertTrue(((urlString?.contains(configuration.accessScope)) != nil))
+        XCTAssertTrue(urlString.contains(configuration.authURLString))
+        XCTAssertTrue(urlString.contains(configuration.accessKey))
+        XCTAssertTrue(urlString.contains(configuration.redirectURI))
+        XCTAssertTrue(urlString.contains("code"))
+        XCTAssertTrue(urlString.contains(configuration.accessScope))
     }
     
     func testCodeFromURL() {

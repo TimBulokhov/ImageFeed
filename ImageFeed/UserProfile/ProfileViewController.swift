@@ -151,7 +151,7 @@ extension ProfileViewController {
         descriptionLabel.text = profile.bio
     }
     
-    private func updateAvatar() {
+    internal func updateAvatar() {
         guard
             let profileImageURL = profileImageService.avatarURL,
             let url = URL(string: profileImageURL)

@@ -32,5 +32,11 @@ final class OAuth2TokenStorage {
     }
 }
 
+extension OAuth2TokenStorage {
+    func clean() {
+        keychain.removeAllKeys()
+    }
+}
+
 
 

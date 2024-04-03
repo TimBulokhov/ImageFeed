@@ -5,70 +5,68 @@
 //  Created by Timofey Bulokhov on 01.03.2024.
 //
 
-import Foundation
-
-struct UserResult: Codable {
-    let profileImage: ImageResult
-    
-    private enum CodingKeys: String, CodingKey {
-        case profileImage = "profile_image"
-    }
-}
-
-struct ImageResult: Codable {
-    let small: String
-    let medium: String
-    let large: String
-}
+import UIKit
 
 final class ProfileImageService {
-    
-    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
-    
+
     private var task: URLSessionTask?
     private(set) var avatarURL: String?
-    static let shared = ProfileImageService()
     private let urlSession = URLSession.shared
-    
-    func fetchProfileImageURL(username: String, token: String, _ completion: @escaping (Result<String, Error>) -> Void) {
+    static let didChangeNotification = Notification.Name(rawValue: "ProfileImageProviderDidChange")
+    static let shared = ProfileImageService()
+    private let urlRequestFactory: URLRequestCreator
+
+    init(urlRequestFactory: URLRequestCreator = .shared) {
+        self.urlRequestFactory = urlRequestFactory
+    }
+
+    func fetchProfileImageURL(
+        username: String,
+        completion: @escaping (Result<String, Error>) -> Void
+    ) {
+        assert(Thread.isMainThread)
         task?.cancel()
-        
-        let request = makeRequest(token: token, username: username)
+        guard let request = profileImageRequest(username: username) else {
+            assertionFailure("Invalid request")
+            completion(.failure(NetworkError.invalidRequest))
+            return
+        }
+
         let task = urlSession.requestTask(for: request) { [weak self] (result: Result<UserResult, Error>) in
-            guard let self = self else {
-                return
-            }
-            
+            guard let self = self else { return }
             switch result {
-            case .success(let profileImage):
-                self.avatarURL = profileImage.profileImage.medium
-                completion(.success(profileImage.profileImage.medium))
-                
-                NotificationCenter.default
-                    .post(name: ProfileImageService.didChangeNotification,
-                          object: self,
-                          userInfo: ["URL": profileImage.profileImage.medium])
+            case .success(let userPhoto):
+                guard let profileImageURL = userPhoto.profileImage?.large else { return }
+                self.avatarURL = profileImageURL
+                completion(.success(profileImageURL))
+                NotificationCenter.default.post(
+                    name: ProfileImageService.didChangeNotification,
+                    object: self,
+                    userInfo: nil
+                )
+                self.task = nil
+
             case .failure(let error):
                 completion(.failure(error))
             }
-            self.task = nil
         }
+
         self.task = task
         task.resume()
     }
-    
-    private func makeRequest(token: String, username: String) -> URLRequest {
-        var urlComponents = URLComponents()
-        urlComponents.path = ApiConstants.unsplashUsersUrlString + "/\(username)"
-        
-        guard let url = urlComponents.url(relativeTo: ApiConstants.defaultBaseURL) else {
-            assertionFailure("Failed to create URL")
-            return URLRequest(url: URL(string: "")!)
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        return request
+}
+
+extension ProfileImageService {
+
+    private func profileImageRequest(username: String) -> URLRequest? {
+        urlRequestFactory.makeHTTPRequest(
+            path: "/users/\(username)",
+            httpMethod: "GET"
+        )
+    }
+
+    func clean() {
+        avatarURL = nil
+        task = nil
     }
 }

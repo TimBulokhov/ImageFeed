@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WebKit
 
 public protocol WebViewPresenterProtocol {
     var view: WebViewViewControllerProtocol? { get set }
@@ -43,5 +44,14 @@ final class WebViewPresenter: WebViewPresenterProtocol {
         guard let request = authHelper.authRequest() else { return }
         view?.load(request: request)
         didUpdateProgressValue(0)
+    }
+    
+    static func clean() {
+        HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+        WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { record in
+            record.forEach { record in
+                WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record], completionHandler: {})
+            }
+        }
     }
 }
