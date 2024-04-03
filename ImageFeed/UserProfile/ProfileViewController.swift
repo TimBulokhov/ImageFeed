@@ -8,8 +8,16 @@
 import UIKit
 import Kingfisher
 
-final class ProfileViewController: UIViewController {
+protocol ProfileViewControllerProtocol: AnyObject {
+    var presenter: ProfileViewPresenterProtocol? { get set }
+    func updateAvatar()
+    func showAlert()
+    func cleanAndGoToMainScreen()
+}
+
+final class ProfileViewController: UIViewController & ProfileViewControllerProtocol {
     
+    var presenter: ProfileViewPresenterProtocol?
     private let storageToken = OAuth2TokenStorage()
     private let profileService = ProfileService.shared
     private let profileImageService = ProfileImageService.shared
@@ -92,30 +100,8 @@ final class ProfileViewController: UIViewController {
         ])
     }
     
-    private func updateProfileDetails(profile: Profile) {
-        nameLabel.text = profile.name
-        loginNameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio
-    }
-    
-    private func updateAvatar() {
-        guard
-            let profileImageURL = profileImageService.avatarURL,
-            let url = URL(string: profileImageURL)
-        else { return }
-        let processor = RoundCornerImageProcessor(cornerRadius: 50)
-        avatar.kf.setImage(with: url, options: [.processor(processor)])
-    }
-    
     @objc private func didTapLogoutButton() {
-        let alert = UIAlertController(title: "Exit", message: "Are you sure to exit?", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] _ in
-            guard let self = self else { return }
-            self.logOut()
-        }))
-        
-        alert.addAction(UIAlertAction(title: "No", style: .default))
-        self.present(alert, animated: true)
+        showAlert()
     }
     
     private func logOut() {
@@ -149,5 +135,48 @@ final class ProfileViewController: UIViewController {
                 guard let self = self else { return }
                 self.updateAvatar()
             }
+    }
+}
+
+extension ProfileViewController {
+    
+    func configure(_ presenter: ProfileViewPresenterProtocol) {
+        self.presenter = presenter
+        self.presenter?.view = self
+    }
+    
+    private func updateProfileDetails(profile: Profile) {
+        nameLabel.text = profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio
+    }
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = profileImageService.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        let processor = RoundCornerImageProcessor(cornerRadius: 50)
+        avatar.kf.setImage(with: url, options: [.processor(processor)])
+    }
+    
+    func showAlert() {
+        guard let inputValue = presenter?.prepareAlert() else { return }
+        let alert = UIAlertController(
+            title: inputValue.title,
+            message: inputValue.message,
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: inputValue.actionYes, style: .default) { [weak self] alertAction in
+            guard let self = self else { return }
+            presenter?.cleanAndGoToMainScreen()
+        })
+        alert.addAction(UIAlertAction(title: inputValue.actionNo, style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func cleanAndGoToMainScreen() {
+        guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+        window.rootViewController = SplashViewController()
     }
 }
