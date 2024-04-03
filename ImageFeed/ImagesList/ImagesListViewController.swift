@@ -20,7 +20,7 @@ final class ImagesListViewController: UIViewController {
     
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var photos: [Photo] = []
-    private var imageListService = ImageListService.shared
+    private var imageListService = ImagesListService.shared
     private var imageListServiceObserver: NSObjectProtocol?
     
     private lazy var dateFormatter: DateFormatter = {
@@ -40,13 +40,13 @@ final class ImagesListViewController: UIViewController {
         
         imageListServiceObserver = NotificationCenter.default
             .addObserver(
-                forName: ImageListService.didChangeNotification,
+                forName: ImagesListService.didChangeNotification,
                 object: nil,
                 queue: .main) { [weak self] _ in
                     guard let self = self else { return }
                     self.updateTableViewAnimated()
                 }
-        imageListService.fetchPhotosNextPage()
+        imageListService.fetchPhotoNextPage()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -86,7 +86,7 @@ extension ImagesListViewController: UITableViewDataSource {
                    forRowAt indexPath: IndexPath) {
         let photos = imageListService.photos
         if indexPath.row + 1 == photos.count {
-            imageListService.fetchPhotosNextPage()
+            imageListService.fetchPhotoNextPage()
         }
     }
     

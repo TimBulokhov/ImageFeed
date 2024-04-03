@@ -8,32 +8,34 @@
 import Foundation
 
 protocol AuthHelperProtocol {
-    func authRequest() -> URLRequest?
+    func authRequest() -> URLRequest
     func code(from url: URL) -> String?
 }
 
 final class AuthHelper: AuthHelperProtocol {
-    func authRequest() -> URLRequest? {
-        guard let url = authURL() else { return nil }
-        
+
+    let configuration: AuthConfig
+
+    init(configuration: AuthConfig = .standard) {
+        self.configuration = configuration
+    }
+
+    func authRequest() -> URLRequest {
+        let url = authURL()
         return URLRequest(url: url)
     }
-    
-    func authURL() -> URL? {
-        guard var urlComponents = URLComponents(string: configuration.authURLString) else {
-            return nil
-        }
-        
+
+    func authURL() -> URL {
+        var urlComponents = URLComponents(string: configuration.unsplashAuthorizeURLString)!
         urlComponents.queryItems = [
             URLQueryItem(name: "client_id", value: configuration.accessKey),
             URLQueryItem(name: "redirect_uri", value: configuration.redirectURI),
             URLQueryItem(name: "response_type", value: "code"),
             URLQueryItem(name: "scope", value: configuration.accessScope)
         ]
-        
-        return urlComponents.url
+        return urlComponents.url!
     }
-    
+
     func code(from url: URL) -> String? {
         if let urlComponents = URLComponents(string: url.absoluteString),
            urlComponents.path == "/oauth/authorize/native",
@@ -44,11 +46,5 @@ final class AuthHelper: AuthHelperProtocol {
         } else {
             return nil
         }
-    }
-    
-    let configuration: AuthConfig
-    
-    init(configuration: AuthConfig = .standard) {
-        self.configuration = configuration
     }
 }
