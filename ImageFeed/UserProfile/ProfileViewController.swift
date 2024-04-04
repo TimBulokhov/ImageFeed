@@ -161,18 +161,14 @@ extension ProfileViewController {
     }
     
     func showAlert() {
-        guard let inputValue = presenter?.prepareAlert() else { return }
-        let alert = UIAlertController(
-            title: inputValue.title,
-            message: inputValue.message,
-            preferredStyle: .alert
-        )
-        alert.addAction(UIAlertAction(title: inputValue.actionYes, style: .default) { [weak self] alertAction in
+        let alert = UIAlertController(title: "Exit", message: "Are you sure to exit?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: { [weak self] _ in
             guard let self = self else { return }
-            presenter?.cleanAndGoToMainScreen()
-        })
-        alert.addAction(UIAlertAction(title: inputValue.actionNo, style: .default, handler: nil))
-        present(alert, animated: true, completion: nil)
+            self.logOut()
+        }))
+        
+        alert.addAction(UIAlertAction(title: "No", style: .default))
+        self.present(alert, animated: true)
     }
     
     func cleanAndGoToMainScreen() {

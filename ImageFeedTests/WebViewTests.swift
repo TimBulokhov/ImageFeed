@@ -73,10 +73,10 @@ final class WebViewTests: XCTestCase {
         
         //when
         let url = authHelper.authURL()
-        let urlString = url!.absoluteString
+        let urlString = url.absoluteString
         
         //then
-        XCTAssertTrue(urlString.contains(configuration.authURLString))
+        XCTAssertTrue(urlString.contains(configuration.unsplashAuthorizeURLString))
         XCTAssertTrue(urlString.contains(configuration.accessKey))
         XCTAssertTrue(urlString.contains(configuration.redirectURI))
         XCTAssertTrue(urlString.contains("code"))

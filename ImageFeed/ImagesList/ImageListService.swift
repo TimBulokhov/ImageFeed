@@ -25,34 +25,55 @@ final class ImagesListService {
     }
     
     func fetchPhotoNextPage() {
-        guard task == nil else { return }
+        guard task == nil else {
+            return
+        }
         
         let nextPage = lastLoadedPage == nil ? 1 : lastLoadedPage! + 1
-        guard let request = photosRequest(page: nextPage, perPage: 10) else {
+        lastLoadedPage = (lastLoadedPage ?? 0) + 1
+        guard var request = photosRequest(page: nextPage, perPage: 10) else {
             assertionFailure("\(NetworkError.invalidRequest)")
             return
         }
-        self.task = urlSession.requestTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
-            guard let self = self else { return }
-            switch result {
-            case .success(let photoResults):
-                for photoResult in photoResults {
-                    self.photos.append(self.decodedResult(photoResult))
-                }
-                self.lastLoadedPage = nextPage
-                self.task = nil
-                NotificationCenter.default
-                    .post(
-                        name: ImagesListService.didChangeNotification,
-                        object: self
-                    )
-            case .failure(let error):
-                if error is NetworkError {
-                }
-                self.handleNetworkError(error)
+        
+        request.httpMethod = "GET"
+        
+        let task = urlSession.requestTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
+            guard let self = self else {
+                return
             }
+            
+            switch result {
+            case .success(let photoResult):
+                photoResult.forEach { photoResult in
+                    let photo = Photo(
+                        id: photoResult.id,
+                        size: CGSize(width: photoResult.width, height: photoResult.height),
+                        createdAt: dateFormatter.date(from: photoResult.createdAt ?? ""),
+                        welcomeDescription: photoResult.description,
+                        thumbImageURL: photoResult.urls.thumb,
+                        fullImageURL: photoResult.urls.full,
+                        isLiked: photoResult.likedByUser)
+                    self.photos.append(photo)
+                }
+                
+                NotificationCenter.default.post(name: ImagesListService.didChangeNotification, object: self,
+                                                userInfo: ["photos": self.photos])
+                
+            case .failure(let error):
+                print(error)
+            }
+            self.task = nil
         }
-        self.task?.resume()
+        
+        self.task = task
+        task.resume()
+        
+        if lastLoadedPage == nil {
+            lastLoadedPage = 1
+        } else {
+            lastLoadedPage? += 1
+        }
     }
     
     private func handleNetworkError(_ error: Error) {
@@ -152,6 +173,3 @@ extension ImagesListService {
     }
     
 }
-
-
-

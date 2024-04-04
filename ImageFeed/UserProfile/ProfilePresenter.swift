@@ -10,7 +10,6 @@ import Foundation
 protocol ProfileViewPresenterProtocol {
     var view: ProfileViewControllerProtocol? { get set }
     func profileImageObserver()
-    func prepareAlert() -> (title: String, message: String, actionYes: String, actionNo: String)
     func getProfileImageURL() -> URL?
     func getProfileDetails() -> Profile?
     func cleanAndGoToMainScreen()
@@ -48,14 +47,6 @@ final class ProfileViewPresenter: ProfileViewPresenterProtocol {
     func getProfileDetails() -> Profile? {
         guard let profile = profileService.profile else { return nil }
         return profile
-    }
-
-    func prepareAlert() -> (title: String, message: String, actionYes: String, actionNo: String) {
-        let title = "Exit"
-        let message = "Are you sure to exit"
-        let actionYes = "YES"
-        let actionNo = "NO"
-        return (title, message, actionYes, actionNo)
     }
 
     func cleanAndGoToMainScreen() {

@@ -23,13 +23,6 @@ final class ImagesListViewController: UIViewController {
     private var imageListService = ImagesListService.shared
     private var imageListServiceObserver: NSObjectProtocol?
     
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        return formatter
-    }()
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -163,7 +156,7 @@ extension ImagesListViewController: ImagesListCellDelegate {
     
     private func showErrorAlert() {
         let alert = UIAlertController(
-            title: "Somethins war wrong :(",
+            title: "Something was wrong :(",
             message: "Cant like this image",
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(

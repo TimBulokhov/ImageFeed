@@ -7,7 +7,7 @@
 
 import XCTest
 
-class Image_FeedUITests: XCTestCase {
+class ImageFeedUITests: XCTestCase {
     private let app = XCUIApplication()
     
     override func setUpWithError() throws {

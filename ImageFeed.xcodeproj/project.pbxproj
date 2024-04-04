@@ -21,6 +21,7 @@
 		1245A72C2BBD76C2009EA0E4 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1245A72B2BBD76C2009EA0E4 /* AlertPresenter.swift */; };
 		1245A7342BBD7C6D009EA0E4 /* ImageFeedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1245A7332BBD7C6D009EA0E4 /* ImageFeedUITests.swift */; };
 		1245A7362BBD7C6D009EA0E4 /* ImageFeedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1245A7352BBD7C6D009EA0E4 /* ImageFeedUITestsLaunchTests.swift */; };
+		1245A73F2BBD897F009EA0E4 /* DateFormatterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1245A73E2BBD897F009EA0E4 /* DateFormatterModel.swift */; };
 		1251FAB82B921B320050C270 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 1251FAB72B921B320050C270 /* ProgressHUD */; };
 		1251FABB2B9228EF0050C270 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1251FABA2B9228EF0050C270 /* Kingfisher */; };
 		1251FABE2B9229500050C270 /* SwiftKeychainWrapper in Frameworks */ = {isa = PBXBuildFile; productRef = 1251FABD2B9229500050C270 /* SwiftKeychainWrapper */; };
@@ -96,6 +97,7 @@
 		1245A7312BBD7C6D009EA0E4 /* ImageFeedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageFeedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1245A7332BBD7C6D009EA0E4 /* ImageFeedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITests.swift; sourceTree = "<group>"; };
 		1245A7352BBD7C6D009EA0E4 /* ImageFeedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1245A73E2BBD897F009EA0E4 /* DateFormatterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatterModel.swift; sourceTree = "<group>"; };
 		1251FABF2B922E530050C270 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
 		1251FAC22B9232270050C270 /* UIBlockingProgresssHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIBlockingProgresssHUD.swift; sourceTree = "<group>"; };
 		1251FAC52B92329D0050C270 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				1251FAC42B9232800050C270 /* TabBarController */,
+				1245A73E2BBD897F009EA0E4 /* DateFormatterModel.swift */,
 				1245A7292BBD755B009EA0E4 /* ArrayExtensions.swift */,
 				1259A7612B62CB6C0001A66A /* AppDelegate.swift */,
 				1259A7632B62CB6C0001A66A /* SceneDelegate.swift */,
@@ -476,6 +479,7 @@
 				126954562BADB7E6006EB18E /* OAuth2TokenResponseBody.swift in Sources */,
 				1272CDD92B6F9DEF0062B044 /* ImagesListCell.swift in Sources */,
 				126361932B8B5D1600F20C22 /* OAuth2Service.swift in Sources */,
+				1245A73F2BBD897F009EA0E4 /* DateFormatterModel.swift in Sources */,
 				1245A7282BBD7387009EA0E4 /* ImagesListModels.swift in Sources */,
 				1251FAC62B92329D0050C270 /* TabBarController.swift in Sources */,
 				126954522BAD853F006EB18E /* ImageListService.swift in Sources */,
