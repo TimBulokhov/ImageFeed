@@ -10,11 +10,26 @@ import Kingfisher
 
 protocol ImageListViewControllerProtocol: AnyObject {
     var presenter: ImagesListViewPresenterProtocol? { get set }
-
+    
     func updateTableViewAnimated(oldCount: Int, newCount: Int)
 }
 
-final class ImagesListViewController: UIViewController {
+final class ImagesListViewController: UIViewController, ImageListViewControllerProtocol {
+    func updateTableViewAnimated(oldCount: Int, newCount: Int) {
+        let oldCount = photos.count
+        let newCount = imageListService.photos.count
+        photos = imageListService.photos
+        if oldCount != newCount {
+            tableView.performBatchUpdates {
+                let indexPaths = (oldCount..<newCount).map { i in
+                    IndexPath(row: i, section: 0)
+                }
+                tableView.insertRows(at: indexPaths, with: .automatic)
+            } completion: { _ in }
+        }
+        
+    }
+    
     
     @IBOutlet private weak var tableView: UITableView!
     
@@ -23,23 +38,18 @@ final class ImagesListViewController: UIViewController {
     private var imageListService = ImagesListService.shared
     private var imageListServiceObserver: NSObjectProtocol?
     
+    lazy var presenter: ImagesListViewPresenterProtocol? = {
+        return ImagesListPresenter()
+    }()
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        
-        imageListServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ImagesListService.didChangeNotification,
-                object: nil,
-                queue: .main) { [weak self] _ in
-                    guard let self = self else { return }
-                    self.updateTableViewAnimated()
-                }
-        imageListService.fetchPhotoNextPage()
+        presenter?.view = self
+        presenter?.viewDidLoad()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -84,7 +94,7 @@ extension ImagesListViewController: UITableViewDataSource {
     }
     
     
-    func updateTableViewAnimated() {
+    func updateTableViewAnimated1() {
         let oldCount = photos.count
         let newCount = imageListService.photos.count
         photos = imageListService.photos

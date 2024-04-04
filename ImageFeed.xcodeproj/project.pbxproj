@@ -37,6 +37,11 @@
 		1259A76B2B62CB6D0001A66A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1259A76A2B62CB6D0001A66A /* Assets.xcassets */; };
 		1259A76E2B62CB6D0001A66A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1259A76C2B62CB6D0001A66A /* LaunchScreen.storyboard */; };
 		125B1DCD2B90FE2A00D11139 /* URLRequestExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125B1DCC2B90FE2A00D11139 /* URLRequestExtension.swift */; };
+		125FE9662BBF360500FCE26D /* ImageListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FE9652BBF360500FCE26D /* ImageListTests.swift */; };
+		125FE9682BBF366F00FCE26D /* ImagesListPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FE9672BBF366F00FCE26D /* ImagesListPresenterSpy.swift */; };
+		125FE96B2BBF380D00FCE26D /* ProfileViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FE96A2BBF380D00FCE26D /* ProfileViewTests.swift */; };
+		125FE96D2BBF381D00FCE26D /* ProfileVCSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FE96C2BBF381D00FCE26D /* ProfileVCSpy.swift */; };
+		125FE96F2BBF385600FCE26D /* ProfileViewPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FE96E2BBF385600FCE26D /* ProfileViewPresenterSpy.swift */; };
 		126361852B8B451700F20C22 /* AuthConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126361842B8B451700F20C22 /* AuthConfig.swift */; };
 		1263618E2B8B5CAE00F20C22 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1263618D2B8B5CAE00F20C22 /* SplashViewController.swift */; };
 		126361932B8B5D1600F20C22 /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126361922B8B5D1600F20C22 /* OAuth2Service.swift */; };
@@ -112,6 +117,11 @@
 		1259A76D2B62CB6D0001A66A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1259A76F2B62CB6D0001A66A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		125B1DCC2B90FE2A00D11139 /* URLRequestExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequestExtension.swift; sourceTree = "<group>"; };
+		125FE9652BBF360500FCE26D /* ImageListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListTests.swift; sourceTree = "<group>"; };
+		125FE9672BBF366F00FCE26D /* ImagesListPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesListPresenterSpy.swift; sourceTree = "<group>"; };
+		125FE96A2BBF380D00FCE26D /* ProfileViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTests.swift; sourceTree = "<group>"; };
+		125FE96C2BBF381D00FCE26D /* ProfileVCSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileVCSpy.swift; sourceTree = "<group>"; };
+		125FE96E2BBF385600FCE26D /* ProfileViewPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewPresenterSpy.swift; sourceTree = "<group>"; };
 		126361842B8B451700F20C22 /* AuthConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfig.swift; sourceTree = "<group>"; };
 		1263618D2B8B5CAE00F20C22 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		126361922B8B5D1600F20C22 /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
@@ -156,9 +166,9 @@
 		1245A7112BBD4814009EA0E4 /* ImageFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				1245A7122BBD4814009EA0E4 /* WebViewTests.swift */,
-				1245A7192BBD48EC009EA0E4 /* WebViewPresenterSpy.swift */,
-				1245A71B2BBD4984009EA0E4 /* WebViewViewControllerSpy.swift */,
+				125FE9692BBF37EF00FCE26D /* ProfileViewTests */,
+				125FE9642BBF35DB00FCE26D /* ImageListTests */,
+				125FE9632BBF359F00FCE26D /* WebViewTests */,
 			);
 			path = ImageFeedTests;
 			sourceTree = "<group>";
@@ -257,6 +267,35 @@
 				1245A7212BBD5FE2009EA0E4 /* URLRequestCreator.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		125FE9632BBF359F00FCE26D /* WebViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				1245A71B2BBD4984009EA0E4 /* WebViewViewControllerSpy.swift */,
+				1245A7192BBD48EC009EA0E4 /* WebViewPresenterSpy.swift */,
+				1245A7122BBD4814009EA0E4 /* WebViewTests.swift */,
+			);
+			path = WebViewTests;
+			sourceTree = "<group>";
+		};
+		125FE9642BBF35DB00FCE26D /* ImageListTests */ = {
+			isa = PBXGroup;
+			children = (
+				125FE9652BBF360500FCE26D /* ImageListTests.swift */,
+				125FE9672BBF366F00FCE26D /* ImagesListPresenterSpy.swift */,
+			);
+			path = ImageListTests;
+			sourceTree = "<group>";
+		};
+		125FE9692BBF37EF00FCE26D /* ProfileViewTests */ = {
+			isa = PBXGroup;
+			children = (
+				125FE96A2BBF380D00FCE26D /* ProfileViewTests.swift */,
+				125FE96C2BBF381D00FCE26D /* ProfileVCSpy.swift */,
+				125FE96E2BBF385600FCE26D /* ProfileViewPresenterSpy.swift */,
+			);
+			path = ProfileViewTests;
 			sourceTree = "<group>";
 		};
 		126361862B8B522900F20C22 /* Auth */ = {
@@ -455,8 +494,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				125FE96F2BBF385600FCE26D /* ProfileViewPresenterSpy.swift in Sources */,
 				1245A7132BBD4814009EA0E4 /* WebViewTests.swift in Sources */,
+				125FE9662BBF360500FCE26D /* ImageListTests.swift in Sources */,
+				125FE9682BBF366F00FCE26D /* ImagesListPresenterSpy.swift in Sources */,
 				1245A71C2BBD4984009EA0E4 /* WebViewViewControllerSpy.swift in Sources */,
+				125FE96B2BBF380D00FCE26D /* ProfileViewTests.swift in Sources */,
+				125FE96D2BBF381D00FCE26D /* ProfileVCSpy.swift in Sources */,
 				1245A71A2BBD48EC009EA0E4 /* WebViewPresenterSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
