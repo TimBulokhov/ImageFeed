@@ -36,7 +36,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
     
     private lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.text = "Екатерина Новикова"
+        nameLabel.text = profileService.profile?.name
         nameLabel.textColor = UIColor(named: "YP White")
         nameLabel.font = UIFont.boldSystemFont(ofSize: 23)
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +45,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
     
     private lazy var loginNameLabel: UILabel = {
         let loginNameLabel = UILabel()
-        loginNameLabel.text = "@ekaterina_nov"
+        loginNameLabel.text = profileService.profile?.loginName
         loginNameLabel.textColor = UIColor(named: "YP Gray")
         loginNameLabel.font = UIFont.systemFont(ofSize: 13)
         loginNameLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +54,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
     
     private lazy var descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
-        descriptionLabel.text = "Hello, world!"
+        descriptionLabel.text = profileService.profile?.bio
         descriptionLabel.textColor = UIColor(named: "YP White")
         descriptionLabel.font = UIFont.systemFont(ofSize: 13)
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +66,7 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
             with: UIImage(named: "logout_button")!,
             target: self,
             action: #selector(self.didTapLogoutButton))
+        logoutButton.accessibilityIdentifier = "logoutButton"
         logoutButton.tintColor = UIColor(named: "YP Red")
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
         return logoutButton
@@ -118,12 +119,10 @@ final class ProfileViewController: UIViewController & ProfileViewControllerProto
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
-        
         view.backgroundColor = .ypBlack
-        
+        presenter?.viewDidLoad()
         addSubViews()
         applyConstraints()
-        updateProfileDetails(profile: profileService.profile!)
         updateAvatar()
         
         profileImageServiceObserver = NotificationCenter.default // "New API" observer

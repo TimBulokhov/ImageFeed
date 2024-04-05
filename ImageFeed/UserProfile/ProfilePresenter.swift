@@ -13,9 +13,13 @@ protocol ProfileViewPresenterProtocol {
     func getProfileImageURL() -> URL?
     func getProfileDetails() -> Profile?
     func cleanAndGoToMainScreen()
+    func viewDidLoad()
 }
 
 final class ProfileViewPresenter: ProfileViewPresenterProtocol {
+    func viewDidLoad() {
+    }
+    
 
     weak var view: ProfileViewControllerProtocol?
 

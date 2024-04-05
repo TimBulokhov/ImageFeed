@@ -87,27 +87,16 @@ extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
-        let photos = imageListService.photos
-        if indexPath.row + 1 == photos.count {
-            imageListService.fetchPhotoNextPage()
+        let testMode = ProcessInfo.processInfo.arguments.contains("testMode")
+        if testMode {
+            print(imageListService.photos.count) }
+        else {
+            let photos = imageListService.photos
+            if indexPath.row + 1 == photos.count {
+                imageListService.fetchPhotoNextPage()
+            }
         }
     }
-    
-    
-    func updateTableViewAnimated1() {
-        let oldCount = photos.count
-        let newCount = imageListService.photos.count
-        photos = imageListService.photos
-        if oldCount != newCount {
-            tableView.performBatchUpdates {
-                let indexPaths = (oldCount..<newCount).map { i in
-                    IndexPath(row: i, section: 0)
-                }
-                tableView.insertRows(at: indexPaths, with: .automatic)
-            } completion: { _ in }
-        }
-    }
-    
 }
 
 extension ImagesListViewController {

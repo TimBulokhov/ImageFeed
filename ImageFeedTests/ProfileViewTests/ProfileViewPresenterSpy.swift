@@ -9,7 +9,10 @@ import UIKit
 @testable import ImageFeed
 
 final class ProfileViewPresenterSpy: ProfileViewPresenterProtocol {
-
+    
+    func profileImageObserver() {
+    }
+    
     var view: ImageFeed.ProfileViewControllerProtocol?
     private let profileService = ProfileService.shared
     var profileData = Profile(result: ProfileResult(username: "testNickname",
@@ -19,8 +22,8 @@ final class ProfileViewPresenterSpy: ProfileViewPresenterProtocol {
     var viewDidLoadCalled = false
     var profileImageCheck = false
     var logoutCheck = false
-
-    func profileImageObserver() {
+    
+    func viewDidLoad() {
         viewDidLoadCalled = true
     }
 
