@@ -8,20 +8,38 @@
 import UIKit
 import Kingfisher
 
-final class ImagesListViewController: UIViewController {
+protocol ImageListViewControllerProtocol: AnyObject {
+    var presenter: ImagesListViewPresenterProtocol? { get set }
+    
+    func updateTableViewAnimated(oldCount: Int, newCount: Int)
+}
+
+final class ImagesListViewController: UIViewController, ImageListViewControllerProtocol {
+    func updateTableViewAnimated(oldCount: Int, newCount: Int) {
+        let oldCount = photos.count
+        let newCount = imageListService.photos.count
+        photos = imageListService.photos
+        if oldCount != newCount {
+            tableView.performBatchUpdates {
+                let indexPaths = (oldCount..<newCount).map { i in
+                    IndexPath(row: i, section: 0)
+                }
+                tableView.insertRows(at: indexPaths, with: .automatic)
+            } completion: { _ in }
+        }
+        
+    }
+    
     
     @IBOutlet private weak var tableView: UITableView!
     
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     private var photos: [Photo] = []
-    private var imageListService = ImageListService.shared
+    private var imageListService = ImagesListService.shared
     private var imageListServiceObserver: NSObjectProtocol?
     
-    private lazy var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        return formatter
+    lazy var presenter: ImagesListViewPresenterProtocol? = {
+        return ImagesListPresenter()
     }()
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -30,17 +48,8 @@ final class ImagesListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
-        
-        imageListServiceObserver = NotificationCenter.default
-            .addObserver(
-                forName: ImageListService.didChangeNotification,
-                object: nil,
-                queue: .main) { [weak self] _ in
-                    guard let self = self else { return }
-                    self.updateTableViewAnimated()
-                }
-        imageListService.fetchPhotosNextPage()
+        presenter?.view = self
+        presenter?.viewDidLoad()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -78,27 +87,16 @@ extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    willDisplay cell: UITableViewCell,
                    forRowAt indexPath: IndexPath) {
-        let photos = imageListService.photos
-        if indexPath.row + 1 == photos.count {
-            imageListService.fetchPhotosNextPage()
+        let testMode = ProcessInfo.processInfo.arguments.contains("testMode")
+        if testMode {
+            print(imageListService.photos.count) }
+        else {
+            let photos = imageListService.photos
+            if indexPath.row + 1 == photos.count {
+                imageListService.fetchPhotoNextPage()
+            }
         }
     }
-    
-    
-    func updateTableViewAnimated() {
-        let oldCount = photos.count
-        let newCount = imageListService.photos.count
-        photos = imageListService.photos
-        if oldCount != newCount {
-            tableView.performBatchUpdates {
-                let indexPaths = (oldCount..<newCount).map { i in
-                    IndexPath(row: i, section: 0)
-                }
-                tableView.insertRows(at: indexPaths, with: .automatic)
-            } completion: { _ in }
-        }
-    }
-    
 }
 
 extension ImagesListViewController {
@@ -157,7 +155,7 @@ extension ImagesListViewController: ImagesListCellDelegate {
     
     private func showErrorAlert() {
         let alert = UIAlertController(
-            title: "Somethins war wrong :(",
+            title: "Something was wrong :(",
             message: "Cant like this image",
             preferredStyle: .alert)
         alert.addAction(UIAlertAction(

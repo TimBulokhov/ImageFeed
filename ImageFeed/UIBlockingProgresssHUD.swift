@@ -13,6 +13,8 @@ final class UIBlockingProgressHUD {
         return UIApplication.shared.windows.first
     }
     
+    static var isShowing: Bool = false
+    
     static func show() {
         window?.isUserInteractionEnabled = false
         ProgressHUD.animate()
